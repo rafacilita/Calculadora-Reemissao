@@ -231,9 +231,9 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
     }
     .toast{
       position: fixed; left:50%; bottom: 16px; transform: translateX(-50%);
-      background: rgba(18,26,39,.92);
+      background: rgba(17,24,39,.92);
       border:1px solid rgba(255,255,255,.10);
-      color: var(--text);
+      color: #fff;
       padding: 10px 12px; border-radius: 999px;
       font-size: 13px; box-shadow: var(--shadow);
       opacity: 0; pointer-events:none; transition: opacity .18s ease;
@@ -493,12 +493,6 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <div class="sub">
           Gere o e-mail pra agência e, <b>se aprovado</b>, cole o <b>código</b> na <b>observação da OP no RF (Reserva Fácil)</b> para o <b>CCO</b> visualizar a tabela com valores.
           <span class="muted">LGPD: não trafegar dados de cartão.</span>
-        </div>
-
-        <div class="legend" aria-label="Legenda de cores">
-          <span class="badge badge--calc">Cálculo</span>
-          <span class="badge badge--rent">Rentabilização</span>
-          <span class="badge badge--cco">CCO / RF</span>
         </div>
       </div>
 
@@ -838,6 +832,19 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
             <div><label>DU/Rav (INF)</label><input id="nac_du_INF" placeholder="0,00" /></div>
             <div><label>Multa (INF)</label><input id="nac_pen_INF" placeholder="0,00" /></div>
           </div>
+          <div class="row" style="margin-top:10px">
+            <div style="display:flex; align-items:center; gap:10px">
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+                <input type="checkbox" id="nac_services_on" />
+                <span><b>Serviços</b></span>
+              </label>
+              <div id="nac_services_wrap" style="display:none; flex:1; max-width:340px">
+                <label>Valor de serviços (BRL)</label>
+                <input id="nac_services_brl" placeholder="0,00" />
+              </div>
+            </div>
+          </div>
+
 
           <div class="kpi">
             <div class="box">
@@ -1790,6 +1797,7 @@ function updateRentComputed(mode, calc){
       const inf = Math.max(0, toIntSafe(document.getElementById("paxq_inf")?.value));
       const total = adt + chd + inf;
       const errors = [];
+      const ciaRaw = String(document.getElementById("cia")?.value || "");      const isNoTicket = /(^|[\s,\/])(?:AD|AZUL)($|[\s,\/])/i.test(ciaRaw.trim());
 
       if(total <= 0){
         errors.push("Informe ao menos 1 passageiro (QTD ADT/CHD/INF).");
@@ -1806,9 +1814,11 @@ function updateRentComputed(mode, calc){
             errors.push(`Informe o nome do ${key}${i+1}.`);
             return false;
           }
-          if(!/^\d{3}-\d{10}$/.test(tk)){
-            errors.push(`Informe o bilhete do ${key}${i+1} no formato 957-1234567890.`);
-            return false;
+          if(!isNoTicket){
+            if(!/^\d{3}-\d{10}$/.test(tk)){
+              errors.push(`Informe o bilhete do ${key}${i+1} no formato 957-1234567890.`);
+              return false;
+            }
           }
         }
         return true;
@@ -2296,10 +2306,13 @@ function buildCRRCode(){
         total += perPax * qty;
         rows.push({t, qty, oldFare, newFare, diffFare, diffTax, du, pen, perPax, totalTipo: perPax*qty});
       }
-      const avg = paxCount > 0 ? total / paxCount : 0;
-      document.getElementById("nac_total_brl").textContent = fmtBRL(total);
+      const servicesOn = !!document.getElementById("nac_services_on")?.checked;
+      const services = servicesOn ? val("nac_services_brl") : 0;
+      const totalNet = Math.max(0, total - services);
+      const avg = paxCount > 0 ? totalNet / paxCount : 0;
+      document.getElementById("nac_total_brl").textContent = fmtBRL(totalNet);
       const _avgEl = document.getElementById("nac_total_avg"); if(_avgEl) _avgEl.textContent = fmtBRL(avg);
-      return {totalBRL: total, avgBRL: avg, paxCount, rows};
+      return {totalBRL: totalNet, totalBRLGross: total, servicesBRL: services, avgBRL: avg, paxCount, rows};
     }
 
     function calcInter(){
@@ -2347,6 +2360,7 @@ function buildCRRCode(){
     function buildPaxTicketPairsHtml(common){
       // Preferir o cadastro por PAX (Nome/Bilhete) para vincular corretamente.
       const store = getPaxStore();
+      const ciaRaw = String(common?.cia || "");      const isNoTicket = /(^|[\s,\/])(?:AD|AZUL)($|[\s,\/])/i.test(ciaRaw.trim());
       const pairs = [];
       function push(arr){
         for(const it of (arr || [])){
@@ -2354,8 +2368,12 @@ function buildCRRCode(){
           const t = String(it?.ticket || "").trim();
           if(!n && !t) continue;
           const nn = n || "(sem nome)";
-          const tt = t || "(sem bilhete)";
-          pairs.push(`${escapeHtml(nn)} — ${escapeHtml(tt)}`);
+          if(isNoTicket){
+            pairs.push(`${escapeHtml(nn)}`);
+          } else {
+            const tt = t || "(sem bilhete)";
+            pairs.push(`${escapeHtml(nn)} — ${escapeHtml(tt)}`);
+          }
         }
       }
       push(store.ADT); push(store.CHD); push(store.INF);
@@ -2380,6 +2398,15 @@ function buildCRRCode(){
       const voos = document.getElementById("nac_voos").value.trim();
       const regrasUser = document.getElementById("nac_regras").value.trim();
 
+      const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
+        ? `
+            <tr>
+              <td colspan="8" class="right"><b>Serviços (abatimento)</b></td>
+              <td style="text-align:right"><b>-${fmtBRL(calc.servicesBRL)}</b></td>
+            </tr>
+          `
+        : "";
+
       const paxRows = calc.rows.map(r => `
         <tr>
           <td><b>${r.t}</b> <span style="display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:#EDE9FE;border:1px solid #C4B5FD;color:#111827;font-size:12px;font-weight:700;line-height:18px;">x${r.qty}</span></td>
@@ -2395,7 +2422,7 @@ function buildCRRCode(){
       `);
 
       const linkLine = (fp === "Link de pagamento" && link)
-        ? `<p style="margin:8px 0 0">Para pagamento via cartão, preencha os dados no link e nos responda com a quantidade de parcelas caso seja parcelado: <b>${escapeHtml(link)}</b></p>`
+        ? `<p style="margin:8px 0 0">Para pagamento via cartão, preencha os dados no link e nos responda com a quantidade de parcelas caso seja parcelado: <b><a href="${escapeHtml((/^https?:\/\//i.test(link)?link:`https://${link}`))}" target="_blank" rel="noopener">${escapeHtml(link)}</a></b></p>`
         : `<p style="margin:8px 0 0">Forma de pagamento: <b>${escapeHtml(fp)}</b></p>`;
 
       const regrasPadrao = `
@@ -2437,6 +2464,7 @@ function buildCRRCode(){
               <th class="right" style="background:#f3f4f6; text-align:right">Total (tipo)</th>
             </tr>
             ${paxRows.join("") || `<tr><td colspan="9">Sem valores informados.</td></tr>`}
+            ${servicesRow}
             <tr>
               <td colspan="8" class="right"><b>TOTAL A PAGAR (BRL)</b></td>
               <td style="text-align:right"><b>${fmtBRL(calc.totalBRL)}</b></td>
@@ -2471,6 +2499,15 @@ function buildCRRCode(){
       const voos = document.getElementById("inter_voos").value.trim();
       const interno = document.getElementById("inter_interno").value.trim();
 
+      const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
+        ? `
+            <tr>
+              <td colspan="8" class="right"><b>Serviços (abatimento)</b></td>
+              <td style="text-align:right"><b>-${fmtBRL(calc.servicesBRL)}</b></td>
+            </tr>
+          `
+        : "";
+
       const paxRows = calc.rows.map(r => `
         <tr>
           <td><b>${r.t}</b> <span style="display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:#EDE9FE;border:1px solid #C4B5FD;color:#111827;font-size:12px;font-weight:700;line-height:18px;">x${r.qty}</span></td>
@@ -2485,7 +2522,7 @@ function buildCRRCode(){
       `);
 
       const linkLine = (fp === "Link de pagamento" && link)
-        ? `<p style="margin:8px 0 0">Para pagamento via cartão, preencha os dados no link e nos responda com a quantidade de parcelas caso seja parcelado: <b>${escapeHtml(link)}</b></p>`
+        ? `<p style="margin:8px 0 0">Para pagamento via cartão, preencha os dados no link e nos responda com a quantidade de parcelas caso seja parcelado: <b><a href="${escapeHtml((/^https?:\/\//i.test(link)?link:`https://${link}`))}" target="_blank" rel="noopener">${escapeHtml(link)}</a></b></p>`
         : `<p style="margin:8px 0 0">Forma de pagamento: <b>${escapeHtml(fp)}</b></p>`;
 
       const fxLine = calc.fx > 0
@@ -2649,6 +2686,11 @@ return (
             <td align="right"><b>Total (tipo)</b></td>
           </tr>
           ${rows}
+          ${(calc.servicesBRL && calc.servicesBRL>0) ? `
+          <tr>
+            <td colspan="7" align="right"><b>Serviços (abatimento)</b></td>
+            <td align="right"><b>-${escAttr(fmtBRL(calc.servicesBRL))}</b></td>
+          </tr>` : ""}
           <tr>
             <td colspan="7" align="right"><b>TOTAL A COBRAR (BRL)</b></td>
             <td align="right"><b>${escAttr(fmtBRL(calc.totalBRL))}</b></td>
@@ -2991,6 +3033,15 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
       const oacW = document.getElementById("oacWrap");
       if(oacW) oacW.classList.toggle("hidden", !nacOn);
       placeRentPanel();
+
+    // NAC: Serviços (abatimento)
+    const _svcOn = document.getElementById("nac_services_on");
+    const _svcWrap = document.getElementById("nac_services_wrap");
+    const _svcVal = document.getElementById("nac_services_brl");
+    const _toggleSvc = ()=>{ if(_svcWrap) _svcWrap.style.display = (_svcOn && _svcOn.checked) ? "block" : "none"; updateAll(); };
+    if(_svcOn){ _svcOn.addEventListener("change", _toggleSvc); }
+    if(_svcVal){ _svcVal.addEventListener("input", updateAll); _svcVal.addEventListener("change", updateAll); }
+    _toggleSvc();
       updateAll();
       renderPaxFields();
     }
