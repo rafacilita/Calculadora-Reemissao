@@ -465,12 +465,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
       border-color: rgba(167,139,250,.45);
       background: rgba(167,139,250,.10);
     }
-    #rentFormCode.codebox{
-      border-color: rgba(34,197,94,.35);
-      background: rgba(34,197,94,.06);
-    }
-
-    /* Button flavors */
+/* Button flavors */
     button.action.cco{ border-color: rgba(167,139,250,.55); background: rgba(167,139,250,.18); }
     button.action.rent{ border-color: rgba(34,197,94,.45); background: rgba(34,197,94,.16); }
     button.action.calc{ border-color: rgba(56,189,248,.45); background: rgba(56,189,248,.14); }
@@ -568,17 +563,17 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
               <div class="rentBlockHdr">Multa</div>
               <div class="rentRow">
                 <div class="field">
-                  <label>Pago na CIA por PAX (<span class="rentCur">BRL</span>)</label>
-                  <div class="grid3" style="grid-template-columns: 1fr 1fr 1fr; margin-top:6px;">
-                    <div>
+                  <label>Pagar na CIA por PAX (<span class="rentCur">BRL</span>)</label>
+                  <div class="grid3" data-role="rent-paid-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top:6px;">
+                    <div class="rentPaxCell" data-pax-type="ADT">
                       <label class="muted small">ADT</label>
                       <input type="text" id="rent_pago_cia_multa_adt" placeholder="ADT">
                     </div>
-                    <div>
+                    <div class="rentPaxCell" data-pax-type="CHD">
                       <label class="muted small">CHD</label>
                       <input type="text" id="rent_pago_cia_multa_chd" placeholder="CHD">
                     </div>
-                    <div>
+                    <div class="rentPaxCell" data-pax-type="INF">
                       <label class="muted small">INF</label>
                       <input type="text" id="rent_pago_cia_multa_inf" placeholder="INF">
                     </div>
@@ -601,17 +596,17 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
               <div class="rentBlockHdr">Diferença de tarifa</div>
               <div class="rentRow">
                 <div class="field">
-                  <label>Pago na CIA por PAX (<span class="rentCur">BRL</span>)</label>
-                  <div class="grid3" style="grid-template-columns: 1fr 1fr 1fr; margin-top:6px;">
-                    <div>
+                  <label>Pagar na CIA por PAX (<span class="rentCur">BRL</span>)</label>
+                  <div class="grid3" data-role="rent-paid-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top:6px;">
+                    <div class="rentPaxCell" data-pax-type="ADT">
                       <label class="muted small">ADT</label>
                       <input type="text" id="rent_pago_cia_diftar_adt" placeholder="ADT">
                     </div>
-                    <div>
+                    <div class="rentPaxCell" data-pax-type="CHD">
                       <label class="muted small">CHD</label>
                       <input type="text" id="rent_pago_cia_diftar_chd" placeholder="CHD">
                     </div>
-                    <div>
+                    <div class="rentPaxCell" data-pax-type="INF">
                       <label class="muted small">INF</label>
                       <input type="text" id="rent_pago_cia_diftar_inf" placeholder="INF">
                     </div>
@@ -634,17 +629,17 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
               <div class="rentBlockHdr">Diferença de taxa</div>
               <div class="rentRow">
                 <div class="field">
-                  <label>Pago na CIA por PAX (<span class="rentCur">BRL</span>)</label>
-                  <div class="grid3" style="grid-template-columns: 1fr 1fr 1fr; margin-top:6px;">
-                    <div>
+                  <label>Pagar na CIA por PAX (<span class="rentCur">BRL</span>)</label>
+                  <div class="grid3" data-role="rent-paid-grid" style="grid-template-columns: 1fr 1fr 1fr; margin-top:6px;">
+                    <div class="rentPaxCell" data-pax-type="ADT">
                       <label class="muted small">ADT</label>
                       <input type="text" id="rent_pago_cia_diftax_adt" placeholder="ADT">
                     </div>
-                    <div>
+                    <div class="rentPaxCell" data-pax-type="CHD">
                       <label class="muted small">CHD</label>
                       <input type="text" id="rent_pago_cia_diftax_chd" placeholder="CHD">
                     </div>
-                    <div>
+                    <div class="rentPaxCell" data-pax-type="INF">
                       <label class="muted small">INF</label>
                       <input type="text" id="rent_pago_cia_diftax_inf" placeholder="INF">
                     </div>
@@ -806,7 +801,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
           <div class="hr"></div>
           
 
-          <div class="row">
+          <div class="row paxTypeRow" data-pax-type="ADT" id="nacRow_ADT">
             <div class="qtywrap"><label>QTD ADT</label><input id="nac_qty_ADT" value="1" inputmode="numeric" /></div>
             <div><label>Tarifa antiga (ADT)</label><input id="nac_old_ADT" placeholder="0,00" /></div>
             <div><label>Tarifa nova (ADT)</label><input id="nac_new_ADT" placeholder="0,00" /></div>
@@ -815,7 +810,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
             <div><label>Multa (ADT)</label><input id="nac_pen_ADT" placeholder="0,00" /></div>
           </div>
 
-          <div class="row">
+          <div class="row paxTypeRow" data-pax-type="CHD" id="nacRow_CHD">
             <div class="qtywrap"><label>QTD CHD</label><input id="nac_qty_CHD" value="0" inputmode="numeric" /></div>
             <div><label>Tarifa antiga (CHD)</label><input id="nac_old_CHD" placeholder="0,00" /></div>
             <div><label>Tarifa nova (CHD)</label><input id="nac_new_CHD" placeholder="0,00" /></div>
@@ -824,7 +819,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
             <div><label>Multa (CHD)</label><input id="nac_pen_CHD" placeholder="0,00" /></div>
           </div>
 
-          <div class="row">
+          <div class="row paxTypeRow" data-pax-type="INF" id="nacRow_INF">
             <div class="qtywrap"><label>QTD INF</label><input id="nac_qty_INF" value="0" inputmode="numeric" /></div>
             <div><label>Tarifa antiga (INF)</label><input id="nac_old_INF" placeholder="0,00" /></div>
             <div><label>Tarifa nova (INF)</label><input id="nac_new_INF" placeholder="0,00" /></div>
@@ -890,6 +885,10 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
               <label>Câmbio (Moeda → BRL)</label>
               <input id="inter_fx" placeholder="Ex.: 5,40" />
             </div>
+            <div id="inter_fx_usd_wrap" class="hidden">
+              <label>Câmbio (USD → BRL) (RC)</label>
+              <input id="inter_fx_usd" placeholder="Ex.: 5,40" />
+            </div>
             <div>
               <label>Recuperação de incentivo?</label>
               <select id="inter_incentivo">
@@ -919,35 +918,35 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 
           <div class="hr"></div>
 
-          <div class="muted small"><b>Valores por tipo de pax (na moeda selecionada)</b></div>
+          <div class="muted small"><b>Valores por tipo de pax (na moeda selecionada • RC sempre em USD)</b></div>
           <div class="hr"></div>
           
 
-          <div class="row">
+          <div class="row paxTypeRow" data-pax-type="ADT" id="interRow_ADT">
             <div class="qtywrap"><label>QTD ADT</label><input id="inter_qty_ADT" value="1" inputmode="numeric" /></div>
             <div><label>Dif. tarifa (ADT)</label><input id="inter_fare_ADT" placeholder="0,00" /></div>
             <div><label>Dif. taxa (ADT)</label><input id="inter_tax_ADT" placeholder="0,00" /></div>
             <div><label>DU/Rav (ADT)</label><input id="inter_du_ADT" placeholder="0,00" /></div>
             <div><label>Multa (ADT)</label><input id="inter_pen_ADT" placeholder="0,00" /></div>
-            <div><label>RC (ADT)</label><input id="inter_fee_ADT" placeholder="0,00" /></div>
+            <div><label>RC USD (ADT)</label><input id="inter_fee_ADT" placeholder="0,00" /></div>
           </div>
 
-          <div class="row">
+          <div class="row paxTypeRow" data-pax-type="CHD" id="interRow_CHD">
             <div class="qtywrap"><label>QTD CHD</label><input id="inter_qty_CHD" value="0" inputmode="numeric" /></div>
             <div><label>Dif. tarifa (CHD)</label><input id="inter_fare_CHD" placeholder="0,00" /></div>
             <div><label>Dif. taxa (CHD)</label><input id="inter_tax_CHD" placeholder="0,00" /></div>
             <div><label>DU/Rav (CHD)</label><input id="inter_du_CHD" placeholder="0,00" /></div>
             <div><label>Multa (CHD)</label><input id="inter_pen_CHD" placeholder="0,00" /></div>
-            <div><label>RC (CHD)</label><input id="inter_fee_CHD" placeholder="0,00" /></div>
+            <div><label>RC USD (CHD)</label><input id="inter_fee_CHD" placeholder="0,00" /></div>
           </div>
 
-          <div class="row">
+          <div class="row paxTypeRow" data-pax-type="INF" id="interRow_INF">
             <div class="qtywrap"><label>QTD INF</label><input id="inter_qty_INF" value="0" inputmode="numeric" /></div>
             <div><label>Dif. tarifa (INF)</label><input id="inter_fare_INF" placeholder="0,00" /></div>
             <div><label>Dif. taxa (INF)</label><input id="inter_tax_INF" placeholder="0,00" /></div>
             <div><label>DU/Rav (INF)</label><input id="inter_du_INF" placeholder="0,00" /></div>
             <div><label>Multa (INF)</label><input id="inter_pen_INF" placeholder="0,00" /></div>
-            <div><label>RC (INF)</label><input id="inter_fee_INF" placeholder="0,00" /></div>
+            <div><label>RC USD (INF)</label><input id="inter_fee_INF" placeholder="0,00" /></div>
           </div>
 
           <div class="kpi">
@@ -982,19 +981,9 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <div class="hr"></div>
 
         <div class="btns">
-          <button class="action primary calc" id="btnGerar">Gerar E-mail (preview)</button>
-          <button class="action good" id="btnCopiarHtml">Copiar E-mail (HTML)</button>
-<button class="action cco" id="btnCopiarObs">Copiar código OBS (RF)</button>
-          <button class="action rent" id="btnCopiarRentForm">Formulário Rentabilização</button>
           <button class="action" id="btnLimpar">Limpar</button>
-          <button class="action" id="btnSalvar">Salvar (local)</button>
-          <button class="action" id="btnCarregar">Carregar (local)</button>
         </div>
-
-        <div class="muted small" style="margin-top:10px">
-          “Copiar código OBS (RF)” copia o <b>código</b> pra colar na observação da OP no RF. Se o RF não renderizar, teste colar só a tabela (sem o título).
-        </div>
-      </div>
+</div>
     </section>
 
     <!-- OUTPUT -->
@@ -1010,21 +999,34 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--agency">AGÊNCIA</span> <b>1) Preview do e-mail (agência)</b> — isso é o que você cola no Outlook.</div>
         <div id="preview" class="preview" contenteditable="true" aria-label="Pré-visualização do e-mail"></div>
 
-        <div class="hr"></div>
-
-        <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--rent">RENT</span> <b>2) Formulário de rentabilidade (SICA)</b> — copie e cole no e-mail para o time de Rentabilização lançar no SICA.</div>
-        <div id="rentFormWrap">
-          <div id="rentFormOff" class="muted small">(Rentabilização desativada) — marque <b>Rentabilização</b> para liberar o formulário.</div>
-          <div id="rentFormContent">
-            <div id="rentFormPreview" class="preview" style="min-height:180px" contenteditable="true" aria-label="Formulário de Rentabilização (SICA)"></div>
-            <textarea id="rentFormCode" class="codebox" style="min-height:120px" spellcheck="false" aria-label="Código do formulário (HTML)"></textarea>
-          </div>
+        <div class="btns" style="margin-top:10px">
+          <button class="action primary calc" id="btnGerar">Gerar E-mail (preview)</button>
+          <button class="action good" id="btnCopiarHtml">Copiar E-mail (HTML)</button>
         </div>
 
         <div class="hr"></div>
 
+        <div id="outRentSicaSection">
+        <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--rent">RENT</span> <b>2) Formulário de rentabilidade (SICA)</b> — copie e cole no e-mail para o time de Rentabilização lançar no SICA.</div>
+        <div id="rentFormWrap">
+          <div id="rentFormPreview" class="preview" style="min-height:180px" contenteditable="true" aria-label="Formulário de Rentabilização (SICA)"></div>
+          <div class="btns" style="margin-top:10px">
+            <button class="action rent" id="btnCopiarRentForm">Formulário Rentabilização</button>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        </div>
+
         <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--cco">CCO</span> <b>3) Código para OBS (OP no RF)</b> — cole direto na observação pra equipe de reemissão (CCO) ver a tabela.</div>
         <textarea id="obsCode" class="codebox" spellcheck="false" aria-label="Código para Observação no RF"></textarea>
+
+        <div class="btns" style="margin-top:10px">
+          <button class="action cco" id="btnCopiarObs">Copiar código OBS (RF)</button>
+        </div>
+        <div class="muted small" style="margin-top:8px">
+          “Copiar código OBS (RF)” copia o <b>código</b> pra colar na observação da OP no RF. Se o RF não renderizar, teste colar só a tabela (sem o título).
+        </div>
 
         <div class="hr"></div>
 
@@ -1033,8 +1035,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <div class="btns" style="margin-top:10px">
           <button class="action" id="btnCopiarRACode">Copiar CRR</button>
           <button class="action" id="btnCarregarRACode">Carregar CRR</button>
-          <button class="action" id="btnCopiarLinkRACode">Copiar link (com CRR)</button>
-        </div>
+</div>
         <div class="muted small" style="margin-top:8px">Se você colar um texto maior (ex.: a observação inteira do RF), o sistema tenta achar automaticamente o trecho <b>CRR2-...</b> (ou <b>CRR1/RA1</b> antigos).</div>
 
       </div>
@@ -1114,19 +1115,13 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
       // saída: formulário de rentabilização (SICA)
       const btnRF = document.getElementById("btnCopiarRentForm");
       if(btnRF){
-        btnRF.disabled = !rd.enabled;
-        btnRF.title = rd.enabled ? "Copiar formulário para Rentabilização" : "Marque Rentabilização para liberar";
+        btnRF.disabled = false;
+        btnRF.title = "Copiar formulário para Rentabilização";
       }
-      const off = document.getElementById("rentFormOff");
-      const content = document.getElementById("rentFormContent");
-      if(off) off.classList.toggle("hidden", rd.enabled);
-      if(content) content.classList.toggle("hidden", !rd.enabled);
-      if(!rd.enabled){
-        const rfp = document.getElementById("rentFormPreview");
-        const rfc = document.getElementById("rentFormCode");
-        if(rfc) rfc.value = "";
-        if(rfp) rfp.innerHTML = "";
-      }
+      // saída (SICA): ocultar quando Rentabilização estiver desabilitado
+      const outSica = document.getElementById("outRentSicaSection");
+      if(outSica) outSica.style.display = rd.enabled ? "block" : "none";
+
 
     }
 
@@ -1281,21 +1276,23 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 
       let head = `
         <tr>
-          <td><b>PAX</b></td>
-          <td><b>Bilhete</b></td>
-          <td align="right"><b>Cobrar (auto)</b></td>
-          <td align="right"><b>Pago na CIA</b></td>
-          <td align="right"><b>Lucro</b></td>
+          <td style="background-color:#a99ac5;color:white;padding:6px;"><b>PAX</b></td>
+          <td style="background-color:#a99ac5;color:white;padding:6px;"><b>Bilhete</b></td>
+          <td style="background-color:#a99ac5;color:white;padding:6px;text-align:left;"><b>Cobrar do cliente (auto)</b></td>
+          <td style="background-color:#a99ac5;color:white;padding:6px;text-align:left;"><b>Pagar na CIA (informado)</b></td>
+          <td style="background-color:#a99ac5;color:white;padding:6px;text-align:left;"><b>Lucro (Cobrar – Pagar)</b></td>
         </tr>
       `;
       let body = "";
       for(let i=0;i<rp.rows.length;i++){
         const p = rp.rows[i];
-        const comp = [];
-        if(rp.sel.diftar) comp.push(`Dif.tar: ${stripHtml(fmt(p.cob.diftar))} | Pago: ${stripHtml(fmt(p.pago.diftar))}`);
-        if(rp.sel.multa)  comp.push(`Multa: ${stripHtml(fmt(p.cob.multa))} | Pago: ${stripHtml(fmt(p.pago.multa))}`);
-        if(rp.sel.diftax) comp.push(`Dif.taxa: ${stripHtml(fmt(p.cob.diftax))} | Pago: ${stripHtml(fmt(p.pago.diftax))}`);
-        body += `<tr>
+        const compCliente = [];
+        const compCia = [];
+        if(rp.sel.diftar){ compCliente.push(`Dif.tar ${stripHtml(fmt(p.cob.diftar))}`); compCia.push(`Dif.tar ${stripHtml(fmt(p.pago.diftar))}`); }
+        if(rp.sel.multa){  compCliente.push(`Multa ${stripHtml(fmt(p.cob.multa))}`);  compCia.push(`Multa ${stripHtml(fmt(p.pago.multa))}`); }
+        if(rp.sel.diftax){ compCliente.push(`Dif.taxa ${stripHtml(fmt(p.cob.diftax))}`); compCia.push(`Dif.taxa ${stripHtml(fmt(p.pago.diftax))}`); }
+        const comp = [`Cobrar do cliente: ${compCliente.join(" + ") || "-"}`, `Pagar na CIA: ${compCia.join(" + ") || "-"}`];
+body += `<tr>
           <td>${escAttr(p.name || (`${p.type}${p.idx}`))}</td>
           <td>${escAttr(maskRFText(p.ticket || "-"))}</td>
           <td align="right">${escAttr(fmt(p.cobrar))}</td>
@@ -1318,7 +1315,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
       return `
         <tr><td colspan="${colspan}"><b>Rentabilização por PAX</b> <span style="color:#666">(dividido por tipo de PAX)</span></td></tr>
         <tr><td colspan="${colspan}">
-          <table border="1" cellspacing="0" cellpadding="3" width="100%">
+          <table border="1" cellspacing="0" cellpadding="3" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 13px;">
             ${head}
             ${body}
             ${foot}
@@ -1339,11 +1336,13 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
       let rows = "";
       for(let i=0;i<rp.rows.length;i++){
         const p = rp.rows[i];
-        const comp = [];
-        if(rp.sel.diftar) comp.push(`Dif.tar: ${stripHtml(fmt(p.cob.diftar))} | Pago: ${stripHtml(fmt(p.pago.diftar))}`);
-        if(rp.sel.multa)  comp.push(`Multa: ${stripHtml(fmt(p.cob.multa))} | Pago: ${stripHtml(fmt(p.pago.multa))}`);
-        if(rp.sel.diftax) comp.push(`Dif.taxa: ${stripHtml(fmt(p.cob.diftax))} | Pago: ${stripHtml(fmt(p.pago.diftax))}`);
-        rows += `<tr>
+        const compCliente = [];
+        const compCia = [];
+        if(rp.sel.diftar){ compCliente.push(`Dif.tar ${stripHtml(fmt(p.cob.diftar))}`); compCia.push(`Dif.tar ${stripHtml(fmt(p.pago.diftar))}`); }
+        if(rp.sel.multa){  compCliente.push(`Multa ${stripHtml(fmt(p.cob.multa))}`);  compCia.push(`Multa ${stripHtml(fmt(p.pago.multa))}`); }
+        if(rp.sel.diftax){ compCliente.push(`Dif.taxa ${stripHtml(fmt(p.cob.diftax))}`); compCia.push(`Dif.taxa ${stripHtml(fmt(p.pago.diftax))}`); }
+        const comp = [`Cobrar do cliente: ${compCliente.join(" + ") || "-"}`, `Pagar na CIA: ${compCia.join(" + ") || "-"}`];
+rows += `<tr>
           ${td(`<b>${escapeHtml(p.name || (`${p.type}${p.idx}`))}</b><div style="color:#666;font-size:11px">${escapeHtml(p.ticket || "-")}</div>`)}
           ${td(escapeHtml(comp.join(" • ")) )}
           ${td(escapeHtml(stripHtml(fmt(p.cobrar))), true)}
@@ -1366,10 +1365,10 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <table style="width:100%;border-collapse:collapse;">
           <tr>
             ${th("PAX")}
-            ${th("Composição (auto × pago)", false)}
-            ${th(`Cobrar (auto) • ${escapeHtml(cur)}`, true)}
-            ${th(`Pago na CIA • ${escapeHtml(cur)}`, true)}
-            ${th(`Lucro • ${escapeHtml(cur)}`, true)}
+            ${th("Composição (Cliente × CIA)", false)}
+            ${th(`Cobrar do cliente (auto) • ${escapeHtml(cur)}`, true)}
+            ${th(`Pagar na CIA (informado) • ${escapeHtml(cur)}`, true)}
+            ${th(`Lucro (Cobrar – Pagar) • ${escapeHtml(cur)}`, true)}
           </tr>
           ${rows}
           ${totalRow}
@@ -1568,7 +1567,16 @@ function updateRentComputed(mode, calc){
       }
     }
 
-    function fmtNumPT(n){
+    
+
+function fmtUSD(n){
+  try{
+    return new Intl.NumberFormat("en-US", {style:"currency", currency:"USD"}).format(n || 0);
+  }catch(e){
+    return `USD ${(n||0).toFixed(2)}`;
+  }
+}
+function fmtNumPT(n){
       const x = Number(n);
       const v = Number.isFinite(x) ? x : 0;
       return new Intl.NumberFormat("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}).format(v);
@@ -1585,6 +1593,7 @@ function updateRentComputed(mode, calc){
     }
     function setPill(ok, text){
       const pill = document.getElementById("statusPill");
+      if(!pill) return;
       pill.textContent = text;
       pill.style.borderColor = ok ? "rgba(61,220,151,.45)" : "rgba(255,204,102,.45)";
       pill.style.background = ok ? "rgba(61,220,151,.14)" : "rgba(255,204,102,.12)";
@@ -1649,7 +1658,36 @@ function updateRentComputed(mode, calc){
       return Number.isFinite(n) ? n : 0;
     }
 
-    function setHiddenQtyAll(adt, chd, inf){
+    
+    function applyPaxTypeVisibility(){
+      const adt = Math.max(0, toIntSafe(document.getElementById("paxq_adt")?.value));
+      const chd = Math.max(0, toIntSafe(document.getElementById("paxq_chd")?.value));
+      const inf = Math.max(0, toIntSafe(document.getElementById("paxq_inf")?.value));
+      const qty = {ADT:adt, CHD:chd, INF:inf};
+
+      // Campos de valores (NAC / INTER)
+      for(const row of document.querySelectorAll(".paxTypeRow")){
+        const t = String(row.getAttribute("data-pax-type") || "").toUpperCase();
+        const show = (qty[t] || 0) > 0;
+        row.classList.toggle("hidden", !show);
+      }
+
+      // Rentabilização: esconder inputs de tipos não usados
+      for(const cell of document.querySelectorAll(".rentPaxCell")){
+        const t = String(cell.getAttribute("data-pax-type") || "").toUpperCase();
+        const show = (qty[t] || 0) > 0;
+        cell.classList.toggle("hidden", !show);
+      }
+
+      // Ajusta colunas do grid da rent (evita “buracos”)
+      for(const grid of document.querySelectorAll('[data-role="rent-paid-grid"]')){
+        const visible = Array.from(grid.querySelectorAll(".rentPaxCell")).filter(el => !el.classList.contains("hidden"));
+        const n = Math.max(1, visible.length);
+        grid.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+      }
+    }
+
+function setHiddenQtyAll(adt, chd, inf){
       for(const [t,val] of [["ADT",adt],["CHD",chd],["INF",inf]]){
         const a = String(Math.max(0, val|0));
         const n1 = document.getElementById(`nac_qty_${t}`); if(n1) n1.value = a;
@@ -1703,7 +1741,9 @@ function updateRentComputed(mode, calc){
 
       setHiddenQtyAll(adt, chd, inf);
 
-      const store = getPaxStore();
+      
+      applyPaxTypeVisibility();
+const store = getPaxStore();
       store.ADT = reconcileArray(store.ADT, adt);
       store.CHD = reconcileArray(store.CHD, chd);
       store.INF = reconcileArray(store.INF, inf);
@@ -1830,6 +1870,13 @@ function updateRentComputed(mode, calc){
       if(getActiveMode() === "INTER"){
         const fx = val("inter_fx");
         if(fx <= 0) errors.push("INTER: informe o câmbio (Moeda → BRL).");
+
+        const cur = getInterCurrency();
+        if(cur !== "USD"){
+          const fxUSD = val("inter_fx_usd");
+          const hasFee = ["ADT","CHD","INF"].some(t => val(`inter_fee_${t}`) > 0);
+          if(hasFee && fxUSD <= 0) errors.push("INTER: RC está em USD — informe o câmbio (USD → BRL).");
+        }
       }
 
       return errors;
@@ -2316,30 +2363,47 @@ function buildCRRCode(){
     }
 
     function calcInter(){
-      let totalCur = 0;
-      let paxCount = 0;
-      const rows = [];
-      for(const t of PAX_TYPES){
-        const qty = intVal(`inter_qty_${t}`);
-        if(qty <= 0) continue;
-        paxCount += qty;
-        const fare = val(`inter_fare_${t}`);
-        const tax  = val(`inter_tax_${t}`);
-        const du   = val(`inter_du_${t}`);
-        const pen  = val(`inter_pen_${t}`);
-        const fee  = val(`inter_fee_${t}`);
-        const perPax = fare + tax + du + pen + fee;
-        totalCur += perPax * qty;
-        rows.push({t, qty, fare, tax, du, pen, fee, perPax, totalTipo: perPax*qty});
-      }
-      const fx = val("inter_fx"); // 1 CUR -> BRL
-      const totalBRL = fx > 0 ? totalCur * fx : 0;
-      document.getElementById("inter_total_cur").textContent = fmtCur(totalCur);
-      document.getElementById("inter_total_brl").textContent = fmtBRL(totalBRL);
-      return {totalCur, fx, totalBRL, paxCount, cur: getInterCurrency(), rows};
+  let totalCur = 0;
+  let paxCount = 0;
+  const rows = [];
+  const cur = getInterCurrency();
+  const fx = val("inter_fx"); // 1 CUR -> BRL
+  const fxUSD = val("inter_fx_usd"); // 1 USD -> BRL (para RC)
+  let hasFeeUSD = false;
+
+  for(const t of PAX_TYPES){
+    const qty = intVal(`inter_qty_${t}`);
+    if(qty <= 0) continue;
+    paxCount += qty;
+
+    const fare = val(`inter_fare_${t}`);
+    const tax  = val(`inter_tax_${t}`);
+    const du   = val(`inter_du_${t}`);
+    const pen  = val(`inter_pen_${t}`);
+
+    const feeUSD = val(`inter_fee_${t}`); // RC sempre em USD
+    if(feeUSD) hasFeeUSD = true;
+
+    let feeCur = feeUSD;
+    if(cur !== "USD"){
+      // converte USD -> CUR via BRL: (USD->BRL)/(CUR->BRL)
+      feeCur = (fx > 0 && fxUSD > 0) ? feeUSD * (fxUSD / fx) : 0;
     }
 
-    // ---------- common ----------
+    const perPax = fare + tax + du + pen + feeCur;
+    totalCur += perPax * qty;
+    rows.push({t, qty, fare, tax, du, pen, feeUSD, feeCur, perPax, totalTipo: perPax*qty});
+  }
+
+  const totalBRL = fx > 0 ? totalCur * fx : 0;
+  document.getElementById("inter_total_cur").textContent = fmtCur(totalCur);
+  document.getElementById("inter_total_brl").textContent = fmtBRL(totalBRL);
+
+  const rcNeedsUsdFx = (cur !== "USD" && hasFeeUSD && !(fxUSD > 0));
+  return {totalCur, fx, fxUSD, totalBRL, paxCount, cur, rows, rcNeedsUsdFx};
+}
+
+// ---------- common ----------
     function getCommon(){
       return {
         cia: document.getElementById("cia").value.trim(),
@@ -2384,7 +2448,14 @@ function buildCRRCode(){
       // Fallback (quando não preenchido por PAX)
       const p = String(common?.pax || "").trim();
       const t = String(common?.tks || "").trim();
-      if(p && t) return `${escapeHtml(p)} — ${escapeHtml(t)}`;
+      if(p && t){
+        const names = p.split(/\r?\n/).map(s=> String(s||"").trim()).filter(Boolean);
+        const tks = t.split(/[;\r?\n]+/).map(s=> String(s||"").trim()).filter(Boolean);
+        if(names.length > 1 && names.length === tks.length){
+          return names.map((n,i)=> `${escapeHtml(n)} — ${escapeHtml(tks[i])}`).join("<br>");
+        }
+        return `${escapeHtml(p)} — ${escapeHtml(t)}`;
+      }
       return escapeHtml(p || t || "");
     }
 // ---------- email templates (Outlook) ----------
@@ -2401,7 +2472,7 @@ function buildCRRCode(){
       const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
         ? `
             <tr>
-              <td colspan="8" class="right"><b>Serviços (abatimento)</b></td>
+              <td colspan="8" style="text-align:right"><b>Serviços (abatimento)</b></td>
               <td style="text-align:right"><b>-${fmtBRL(calc.servicesBRL)}</b></td>
             </tr>
           `
@@ -2438,8 +2509,8 @@ function buildCRRCode(){
           <p>Segue abaixo cálculo de reemissão conforme solicitado.</p>
 
           <table border="1" cellspacing="0" cellpadding="6" width="760" style="width:760px; max-width:760px; margin:0; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse; border:1px solid #c7ced9">
-            <tr><th colspan="2" style="text-align:center; font-size:14px; background:#f3f4f6">CÁLCULO DE REEMISSÃO NACIONAL</th></tr>
-            <tr><td colspan="2" style="text-align:center"><b>ATENÇÃO:</b> CONFIRA TODOS OS DADOS ANTES DE APROVAR A REEMISSÃO.<br/>VALORES SUJEITOS A ALTERAÇÃO</td></tr>
+            <tr><td colspan="2" style="background-color:#d9cce3; font-weight:bold; text-align:center; padding:8px; font-size:14px;">CÁLCULO DE REEMISSÃO NACIONAL</td></tr>
+            <tr><td colspan="2" style="text-align:center; padding:8px;"><b>ATENÇÃO:</b> CONFIRA TODOS OS DADOS ANTES DE APROVAR A REEMISSÃO.<br/>VALORES SUJEITOS A ALTERAÇÃO</td></tr>
             <tr><td style="width:32%"><b>Cia Aérea</b></td><td>${escapeHtml(common.cia)}</td></tr>
             <tr><td><b>Prazo</b></td><td>${escapeHtml(common.prazo)}</td></tr>
             <tr><td><b>Localizador</b></td><td>${escapeHtml(common.loc)}</td></tr>
@@ -2453,21 +2524,21 @@ function buildCRRCode(){
           <p style="margin:12px 0 6px"><b>Descritivo de valores (por pax)</b></p>
           <table border="1" cellspacing="0" cellpadding="6" width="760" style="width:760px; max-width:760px; margin:0; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse; border:1px solid #c7ced9">
             <tr>
-              <th style="background:#f3f4f6">Tipo</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Tarifa antiga</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Tarifa nova</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Dif. tarifa</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Dif. taxa</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">DU/Rav</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Multa</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Total por pax</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Total (tipo)</th>
+              <th style="background-color:#a99ac5; color:white; text-align:left">Tipo</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Tarifa antiga</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Tarifa nova</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Dif. tarifa</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Dif. taxa</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">DU/Rav</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Multa</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Total por pax</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Total (tipo)</th>
             </tr>
             ${paxRows.join("") || `<tr><td colspan="9">Sem valores informados.</td></tr>`}
             ${servicesRow}
             <tr>
-              <td colspan="8" class="right"><b>TOTAL A PAGAR (BRL)</b></td>
-              <td style="text-align:right"><b>${fmtBRL(calc.totalBRL)}</b></td>
+              <td colspan="8" style="text-align:right; background-color:#d9cce3"><b>TOTAL A PAGAR (BRL)</b></td>
+              <td style="text-align:right; background-color:#d9cce3"><b>${fmtBRL(calc.totalBRL)}</b></td>
             </tr>
           </table>
 
@@ -2502,7 +2573,7 @@ function buildCRRCode(){
       const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
         ? `
             <tr>
-              <td colspan="8" class="right"><b>Serviços (abatimento)</b></td>
+              <td colspan="8" style="text-align:right"><b>Serviços (abatimento)</b></td>
               <td style="text-align:right"><b>-${fmtBRL(calc.servicesBRL)}</b></td>
             </tr>
           `
@@ -2515,7 +2586,7 @@ function buildCRRCode(){
           <td style="text-align:right">${fmtCur(r.tax)}</td>
           <td style="text-align:right">${fmtCur(r.du)}</td>
           <td style="text-align:right">${fmtCur(r.pen)}</td>
-          <td style="text-align:right">${fmtCur(r.fee)}</td>
+          <td style="text-align:right">${fmtUSD(r.feeUSD)}</td>
           <td style="text-align:right"><b>${fmtCur(r.perPax)}</b></td>
           <td style="text-align:right"><b>${fmtCur(r.totalTipo)}</b></td>
         </tr>
@@ -2534,8 +2605,8 @@ function buildCRRCode(){
           <p>Segue abaixo cálculo de reemissão conforme solicitado.</p>
 
           <table border="1" cellspacing="0" cellpadding="6" width="760" style="width:760px; max-width:760px; margin:0; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse; border:1px solid #c7ced9">
-            <tr><th colspan="2" style="text-align:center; font-size:14px; background:#f3f4f6">CÁLCULO DE REEMISSÃO INTERNACIONAL</th></tr>
-            <tr><td colspan="2" style="text-align:center"><b>ATENÇÃO:</b> CONFIRA TODOS OS DADOS ANTES DE APROVAR A REEMISSÃO.<br/>VALORES SUJEITOS A ALTERAÇÃO</td></tr>
+            <tr><td colspan="2" style="background-color:#d9cce3; font-weight:bold; text-align:center; padding:8px; font-size:14px;">CÁLCULO DE REEMISSÃO INTERNACIONAL</td></tr>
+            <tr><td colspan="2" style="text-align:center; padding:8px;"><b>ATENÇÃO:</b> CONFIRA TODOS OS DADOS ANTES DE APROVAR A REEMISSÃO.<br/>VALORES SUJEITOS A ALTERAÇÃO</td></tr>
             <tr><td style="width:32%"><b>Cia Aérea</b></td><td>${escapeHtml(common.cia)}</td></tr>
             <tr><td><b>Prazo</b></td><td>${escapeHtml(common.prazo)}</td></tr>
             <tr><td><b>Localizador do Cálculo</b></td><td>${escapeHtml(common.loc)}</td></tr>
@@ -2548,22 +2619,22 @@ function buildCRRCode(){
             <tr><td><b>Recuperação de incentivo?</b></td><td>${escapeHtml(incentivo)}</td></tr>
           </table>
 
-          <p style="margin:12px 0 6px"><b>Descritivo de valores (por pax) — ${escapeHtml(calc.cur)}</b></p>
+          <p style="margin:12px 0 6px"><b>Descritivo de valores (por pax) — ${escapeHtml(calc.cur)} <span style="font-weight:700; color:#475569">(RC em USD)</span></b></p>
           <table border="1" cellspacing="0" cellpadding="6" width="760" style="width:760px; max-width:760px; margin:0; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse; border:1px solid #c7ced9">
             <tr>
-              <th style="background:#f3f4f6">Tipo</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Dif. tarifa</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Dif. taxa</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">DU/Rav</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Multa</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">RC</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Total por pax</th>
-              <th class="right" style="background:#f3f4f6; text-align:right">Total (tipo)</th>
+              <th style="background-color:#a99ac5; color:white; text-align:left">Tipo</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Dif. tarifa</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Dif. taxa</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">DU/Rav</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Multa</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">RC (USD)</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Total por pax</th>
+              <th class="right" style="background-color:#a99ac5; color:white; text-align:right">Total (tipo)</th>
             </tr>
             ${paxRows.join("") || `<tr><td colspan="8">Sem valores informados.</td></tr>`}
             <tr>
-              <td colspan="7" class="right"><b>TOTAL (${escapeHtml(calc.cur)})</b></td>
-              <td style="text-align:right"><b>${fmtCur(calc.totalCur)}</b></td>
+              <td colspan="7" style="text-align:right; background-color:#d9cce3"><b>TOTAL (${escapeHtml(calc.cur)})</b></td>
+              <td style="text-align:right; background-color:#d9cce3"><b>${fmtCur(calc.totalCur)}</b></td>
             </tr>
           </table>
 
@@ -2583,40 +2654,59 @@ function buildCRRCode(){
     }
 
     // ---------- RF OBS CODE (HTML simples) ----------
-    function rfHeader(mode){
-      const loc = document.getElementById("loc").value.trim();
-      const cia = document.getElementById("cia").value.trim();
-      const base = mode === "NAC" ? "OP (RF) — REEMISSÃO NAC" : "OP (RF) — REEMISSÃO INTER";
-      const extra = `${loc ? " • LOC: " + loc : ""}${cia ? " • CIA: " + cia : ""}`;
-      return `<font color="blue" size="2"><b><i>${escAttr(base)}${escAttr(extra)}</i></b></font><br>`;
-    }
+    function buildOpTitle(mode, c){
+  const base = mode === "NAC" ? "OP (RF) — REEMISSÃO NAC" : "OP (RF) — REEMISSÃO INTER";
+  const loc = (c && c.loc) ? String(c.loc).trim() : "";
+  const cia = (c && c.cia) ? String(c.cia).trim() : "";
+  const extra = `${loc ? " • LOC: " + loc : ""}${cia ? " • CIA: " + cia : ""}`;
+  return base + extra;
+}
+
+function rfHeader(mode){
+  // Removido (título agora vai dentro da faixa roxa da tabela)
+  return "";
+}
 
     function buildRfObsNac(){
       const c = getCommon();
       const calc = calcNac();
 
-      let rows = "";
-      for(const r of calc.rows){
-        rows += `<tr>
-          <td><b>${escAttr(r.t)}</b> (qtd ${r.qty})</td>
-          <td align="right">${escAttr(fmtBRL(r.oldFare))}</td>
-          <td align="right">${escAttr(fmtBRL(r.newFare))}</td>
-          <td align="right">${escAttr(fmtBRL(r.diffFare))}</td>
-          <td align="right">${escAttr(fmtBRL(r.diffTax))}</td>
-          <td align="right">${escAttr(fmtBRL(r.du))}</td>
-          <td align="right">${escAttr(fmtBRL(r.pen))}</td>
-          <td align="right"><b>${escAttr(fmtBRL(r.totalTipo))}</b></td>
-        </tr>`;
-      }
-      if(!rows) rows = `<tr><td colspan="8">Sem valores informados.</td></tr>`;
-
       const fp = document.getElementById("nac_fp").value;
-      const link = document.getElementById("nac_link").value.trim();
       const pay = (fp === "Link de pagamento") ? "Link de pagamento (enviado à agência)" : "Faturado";
 
+      let valueRows = "";
+      for(const r of calc.rows){
+        valueRows += `
+          <tr><td colspan="2" style="background-color:#f3f4f6; font-weight:bold; padding:6px;">${escAttr(r.t)} (qtd ${r.qty})</td></tr>
+          <tr><td style="padding:6px;">Tarifa Antiga (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtBRL(r.oldFare))}</td></tr>
+          <tr><td style="padding:6px;">Tarifa Nova (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtBRL(r.newFare))}</td></tr>
+          <tr><td style="padding:6px;">Diferença de tarifa (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtBRL(r.diffFare))}</td></tr>
+          <tr><td style="padding:6px;">Diferença de taxa (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtBRL(r.diffTax))}</td></tr>
+          <tr><td style="padding:6px;">DU/Rav (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtBRL(r.du))}</td></tr>
+          <tr><td style="padding:6px;">Multa (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtBRL(r.pen))}</td></tr>
+          <tr><td style="padding:6px;"><b>Total (por pax)</b></td><td style="padding:6px; text-align:left;"><b>${escAttr(fmtBRL(r.perPax))}</b></td></tr>
+          
+        `;
+      }
+      if(!valueRows){
+        valueRows = `<tr><td colspan="2">Sem valores informados.</td></tr>`;
+      }
+
+      if(calc.servicesBRL && calc.servicesBRL > 0){
+        valueRows += `
+          <tr><td style="padding:6px;">Serviços (abatimento):</td><td style="padding:6px; text-align:left;"><b>-${escAttr(fmtBRL(calc.servicesBRL))}</b></td></tr>
+        `;
+      }
+
+      valueRows += `
+        <tr><td style="padding:6px;"><b>TOTAL A COBRAR (BRL)</b></td><td style="padding:6px; text-align:left;"><b>${escAttr(fmtBRL(calc.totalBRL))}</b></td></tr>
+      `;
+
+      // ---- Rentabilização (uso interno) ----
       const rd = getRentData();
       const rentTipos = [rd.multa ? "Multa" : "", rd.diftar ? "Dif. tarifa" : "", rd.diftax ? "Dif. taxa" : ""].filter(Boolean).join("; ");
       const autoRent = calcRentAutoTotals("NAC", calc);
+
       const paidRaw = (cat, pax)=> (document.getElementById(`rent_pago_cia_${cat}_${pax}`)?.value || "").trim();
       const paidNum = (cat, pax)=> parseBRNumber(paidRaw(cat, pax));
 
@@ -2638,67 +2728,111 @@ function buildCRRCode(){
         const any = !!(paidRaw(cat,"adt") || paidRaw(cat,"chd") || paidRaw(cat,"inf"));
         return {adt, chd, inf, total:(adt+chd+inf), any};
       };
-      const fmtPaid = (p)=>{
-        if(!p.any) return "-";
-        return `ADT ${fmtBRL(p.adt)} | CHD ${fmtBRL(p.chd)} | INF ${fmtBRL(p.inf)} | Total ${fmtBRL(p.total)}`;
-      };
 
-      const pM = paidBy("multa");  const mPaid = pM.total;  const mLuc = autoRent.multa  - mPaid;
-      const pT = paidBy("diftar"); const tPaid = pT.total;  const tLuc = autoRent.diftar - tPaid;
-      const pX = paidBy("diftax"); const xPaid = pX.total;  const xLuc = autoRent.diftax - xPaid;
+      const pM = paidBy("multa");  const mLuc = autoRent.multa  - pM.total;
+      const pT = paidBy("diftar"); const tLuc = autoRent.diftar - pT.total;
+      const pX = paidBy("diftax"); const xLuc = autoRent.diftax - pX.total;
 
-let lucroTotal = 0;
+      let lucroTotal = 0;
       if(rd.multa) lucroTotal += mLuc;
       if(rd.diftar) lucroTotal += tLuc;
       if(rd.diftax) lucroTotal += xLuc;
 
+      // --- RENT (mais claro: Cobrar do cliente × Pagar na CIA) ---
+      const cobBy = (cat)=>{
+        const out = {adt:0, chd:0, inf:0, total:0};
+        const rows = (calc && Array.isArray(calc.rows)) ? calc.rows : [];
+        for(const r of rows){
+          const t = String(r.t||"").toUpperCase();
+          const qty = Number(r.qty||0) || 0;
+          if(qty<=0) continue;
+          let per = 0;
+          if(cat==="multa") per = Number(r.pen||0) || 0;
+          if(cat==="diftar") per = Number(r.diffFare||0) || 0;
+          if(cat==="diftax") per = Number(r.diffTax||0) || 0;
+          const v = per * qty;
+          if(t==="ADT") out.adt += v;
+          if(t==="CHD") out.chd += v;
+          if(t==="INF") out.inf += v;
+          out.total += v;
+        }
+        return out;
+      };
+
+      const cobM = cobBy("multa");
+      const cobT = cobBy("diftar");
+      const cobX = cobBy("diftax");
+
+      // totais selecionados
+      let sumCob = 0, sumPago = 0;
+      if(rd.multa){  sumCob += cobM.total; sumPago += pM.total; }
+      if(rd.diftar){ sumCob += cobT.total; sumPago += pT.total; }
+      if(rd.diftax){ sumCob += cobX.total; sumPago += pX.total; }
+      lucroTotal = sumCob - sumPago;
+
+      const rentItemTable = (title, cob, paid)=>{
+        const showAdt = (qtyByType.ADT||0) > 0;
+        const showChd = (qtyByType.CHD||0) > 0;
+        const showInf = (qtyByType.INF||0) > 0;
+
+        const row = (tp, cobV, paidV)=>{
+          return `<tr>
+            <td style="padding:6px;border:1px solid #e5e7eb;"><b>${escAttr(tp)}</b></td>
+            <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtBRL(cobV))}</td>
+            <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtBRL(paidV))}</td>
+          </tr>`;
+        };
+
+        let body = "";
+        if(showAdt) body += row("ADT", cob.adt, paid.adt);
+        if(showChd) body += row("CHD", cob.chd, paid.chd);
+        if(showInf) body += row("INF", cob.inf, paid.inf);
+
+        body += `<tr>
+          <td style="padding:6px;border:1px solid #e5e7eb;"><b>Total</b></td>
+          <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;"><b>${escAttr(fmtBRL(cob.total))}</b></td>
+          <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;"><b>${escAttr(fmtBRL(paid.total))}</b></td>
+        </tr>`;
+
+        return `
+          <table style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:13px;margin:4px 0 8px 0;">
+            <tr><td colspan="3" style="background-color:#a99ac5;color:white;font-weight:bold;padding:6px;">${escAttr(title)} (BRL) — valores por PAX</td></tr>
+            <tr>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:left;">Tipo PAX</th>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Cobrar do cliente (auto)</th>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Pagar na CIA (informado)</th>
+            </tr>
+            ${body}
+          </table>
+        `;
+      };
+
       const rentBlock = (rd.enabled && rd.anyType) ? (`
-          <tr><td colspan="8"><font color="red"><b>RENTABILIZAÇÃO</b></font></td></tr>
-          <tr><td colspan="8"><b>Tipo:</b> ${escAttr(rentTipos || "-")} &nbsp;&nbsp;•&nbsp;&nbsp; <b>Moeda:</b> BRL</td></tr>
-<tr><td colspan="8"><b>Lucro total (BRL):</b> ${escAttr(fmtBRL(lucroTotal))}</td></tr>
-                ${buildRentPaxTableRF("NAC", calc, 8)}
-`) : "";
+        <tr><td colspan="2" style="background-color:#f4cccc; font-weight:bold; padding:6px;">RENTABILIZAÇÃO</td></tr>
+        <tr><td style="padding:6px;"><b>Tipo</b></td><td style="padding:6px;">${escAttr(rentTipos || "-")}</td></tr>
+        <tr><td style="padding:6px;"><b>Moeda</b></td><td style="padding:6px;">BRL</td></tr>
+        ${rd.multa ? `<tr><td colspan="2" style="padding:0 6px;">${rentItemTable("MULTA", cobM, pM)}</td></tr>` : ""}
+        ${rd.diftar ? `<tr><td colspan="2" style="padding:0 6px;">${rentItemTable("DIF. TARIFA", cobT, pT)}</td></tr>` : ""}
+        ${rd.diftax ? `<tr><td colspan="2" style="padding:0 6px;">${rentItemTable("DIF. TAXA", cobX, pX)}</td></tr>` : ""}
+        
+      `) : "";
 
-      
-      const includeTks = true;
-
-      const includeCode = false;
-return (
+      return (
         rfHeader("NAC") +
-        `<table border="1" cellspacing="0" cellpadding="3" width="100%">
-          <tr><td colspan="2"><b>LOC</b></td><td colspan="6">${escAttr(c.loc)}</td></tr>
-          ${c.novo_loc ? `<tr><td colspan="2"><b>Novo LOC</b></td><td colspan="6">${escAttr(c.novo_loc)}</td></tr>` : ""}
-          <tr><td colspan="2"><b>PAX</b></td><td colspan="6">${buildPaxTicketPairsHtml(c)}</td></tr>
-          ${includeTks ? `<tr><td colspan="2"><b>Bilhete/OAC</b></td><td colspan="6">${escAttr(maskRFText(ensureTicketHyphen(joinTicketOac(c.tks, c.oac))))}</td></tr>` : ""}
-          <tr><td colspan="2"><b>Família</b></td><td colspan="6">${escAttr(c.familia)}</td></tr>
-          <tr><td colspan="2"><b>Bagagem</b></td><td colspan="6">${escAttr(c.bag)}</td></tr>
-          <tr><td colspan="2"><b>Prazo</b></td><td colspan="6">${escAttr(c.prazo)}</td></tr>
-          <tr><td colspan="2"><b>Pagto</b></td><td colspan="6">${escAttr(pay)}</td></tr>
-          <tr><td colspan="8"><b>Valores (BRL)</b></td></tr>
-          <tr>
-            <td><b>Tipo</b></td>
-            <td align="right"><b>Tarifa antiga</b></td>
-            <td align="right"><b>Nova tarifa</b></td>
-            <td align="right"><b>Dif. Tarifa</b></td>
-            <td align="right"><b>Dif. Taxa</b></td>
-            <td align="right"><b>DU/Rav</b></td>
-            <td align="right"><b>Multa</b></td>
-            <td align="right"><b>Total (tipo)</b></td>
-          </tr>
-          ${rows}
-          ${(calc.servicesBRL && calc.servicesBRL>0) ? `
-          <tr>
-            <td colspan="7" align="right"><b>Serviços (abatimento)</b></td>
-            <td align="right"><b>-${escAttr(fmtBRL(calc.servicesBRL))}</b></td>
-          </tr>` : ""}
-          <tr>
-            <td colspan="7" align="right"><b>TOTAL A COBRAR (BRL)</b></td>
-            <td align="right"><b>${escAttr(fmtBRL(calc.totalBRL))}</b></td>
-          </tr>
+        `<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px;">
+          <tr><td colspan="2" style="background-color:#d9cce3; font-weight:bold; text-align:center; padding:8px;">${escAttr(buildOpTitle("NAC", c))}</td></tr>
+${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td style="padding:6px;">${escAttr(c.novo_loc)}</td></tr>` : ""}
+          <tr><td style="padding:6px;"><strong>Passageiro(s):</strong></td><td style="padding:6px;">${buildPaxTicketPairsHtml(c)}</td></tr>
+          ${c.oac ? `<tr><td style="padding:6px;"><strong>OAC:</strong></td><td style="padding:6px;">${escAttr(c.oac)}</td></tr>` : ""}
+          <tr><td style="padding:6px;"><strong>Família Tarifária:</strong></td><td style="padding:6px;">${escAttr(c.familia)}</td></tr>
+          <tr><td style="padding:6px;"><strong>Bagagem:</strong></td><td style="padding:6px;">${escAttr(c.bag)}</td></tr>
+<tr><th style="background-color:#a99ac5; color:white; text-align:left; padding:6px;">Descritivo</th><th style="background-color:#a99ac5; color:white; text-align:left; padding:6px;">Valores</th></tr>
+          ${valueRows}
           ${rentBlock}
-                  </table>`
+        </table>`
       );
     }
+
 
     function buildRfObsInter(){
       const c = getCommon();
@@ -2706,13 +2840,43 @@ return (
       const incentivo = document.getElementById("inter_incentivo").value;
       const tipo = document.getElementById("inter_tipo").value;
 
-
       const internoRF = (document.getElementById("inter_interno") ? document.getElementById("inter_interno").value.trim() : "");
       const internoHtml = internoRF ? escAttr(maskRFText(internoRF)).split("\n").join("<br>") : "";
 
+      const fp = document.getElementById("inter_fp").value;
+      const pay = (fp === "Link de pagamento") ? "Link de pagamento (enviado à agência)" : "Faturado";
+
+      const fxText = (calc.fx > 0) ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".",",")} BRL` : `Câmbio não informado`;
+      const rcFxText = (calc.cur !== "USD" && calc.fxUSD > 0) ? `1 USD = ${calc.fxUSD.toFixed(4).replace(".",",")} BRL` : (calc.cur !== "USD" ? "USD→BRL (RC) não informado" : "");
+
+      let valueRows = "";
+      for(const r of calc.rows){
+        const rcCell = (r.feeUSD && r.feeUSD > 0) ? escAttr(fmtUSD(r.feeUSD)) : "USD INFORMAR";
+        valueRows += `
+          <tr><td colspan="2" style="background-color:#f3f4f6; font-weight:bold; padding:6px;">${escAttr(r.t)} (qtd ${r.qty})</td></tr>
+          <tr><td style="padding:6px;">Diferença de tarifa (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtCur(r.fare))}</td></tr>
+          <tr><td style="padding:6px;">Diferença de taxa (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtCur(r.tax))}</td></tr>
+          <tr><td style="padding:6px;">DU/Rav (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtCur(r.du))}</td></tr>
+          <tr><td style="padding:6px;">Multa (por pax):</td><td style="padding:6px; text-align:left;">${escAttr(fmtCur(r.pen))}</td></tr>
+          <tr><td style="padding:6px;">RC (USD) (por pax):</td><td style="padding:6px; text-align:left;">${rcCell}</td></tr>
+          <tr><td style="padding:6px;"><b>Total (por pax)</b></td><td style="padding:6px; text-align:left;"><b>${escAttr(fmtCur(r.perPax))}</b></td></tr>
+          
+        `;
+      }
+      if(!valueRows){
+        valueRows = `<tr><td colspan="2">Sem valores informados.</td></tr>`;
+      }
+
+      valueRows += `
+        <tr><td style="padding:6px;"><b>TOTAL (${escAttr(calc.cur)})</b></td><td style="padding:6px; text-align:left;"><b>${escAttr(fmtCur(calc.totalCur))}</b></td></tr>
+        <tr><td><b>TOTAL A COBRAR (BRL)</b></td><td style="padding:6px; text-align:left;"><b>${escAttr(fmtBRL(calc.totalBRL))}</b></td></tr>
+      `;
+
+      // ---- Rentabilização (uso interno) ----
       const rd = getRentData();
       const rentTipos = [rd.multa ? "Multa" : "", rd.diftar ? "Dif. tarifa" : "", rd.diftax ? "Dif. taxa" : ""].filter(Boolean).join("; ");
       const autoRent = calcRentAutoTotals("INTER", calc);
+
       const paidRaw = (cat, pax)=> (document.getElementById(`rent_pago_cia_${cat}_${pax}`)?.value || "").trim();
       const paidNum = (cat, pax)=> parseBRNumber(paidRaw(cat, pax));
 
@@ -2743,85 +2907,111 @@ return (
       const pT = paidBy("diftar"); const tPaid = pT.total;  const tLuc = autoRent.diftar - tPaid;
       const pX = paidBy("diftax"); const xPaid = pX.total;  const xLuc = autoRent.diftax - xPaid;
 
-let lucroTotal = 0;
+      let lucroTotal = 0;
       if(rd.multa) lucroTotal += mLuc;
       if(rd.diftar) lucroTotal += tLuc;
       if(rd.diftax) lucroTotal += xLuc;
 
-      const rentBlock = (rd.enabled && rd.anyType) ? (`
-          <tr><td colspan="7"><font color="red"><b>RENTABILIZAÇÃO</b></font></td></tr>
-          <tr><td colspan="7"><b>Tipo:</b> ${escAttr(rentTipos || "-")} &nbsp;&nbsp;•&nbsp;&nbsp; <b>Moeda:</b> ${escAttr(calc.cur)}</td></tr>
-          ${rd.multa ? `<tr><td colspan="7"><b>Multa:</b> Pago na cia: ${escAttr(fmtPaid(pM))} &nbsp;&nbsp; Cobrar agência (auto): ${escAttr(fmtCur(autoRent.multa))} &nbsp;&nbsp; Lucro: ${escAttr(fmtCur(mLuc))}</td></tr>` : ""}
-${rd.diftar ? `<tr><td colspan="7"><b>Dif. tarifa:</b> Pago na cia: ${escAttr(fmtPaid(pT))} &nbsp;&nbsp; Cobrar agência (auto): ${escAttr(fmtCur(autoRent.diftar))} &nbsp;&nbsp; Lucro: ${escAttr(fmtCur(tLuc))}</td></tr>` : ""}
-${rd.diftax ? `<tr><td colspan="7"><b>Dif. taxa:</b> Pago na cia: ${escAttr(fmtPaid(pX))} &nbsp;&nbsp; Cobrar agência (auto): ${escAttr(fmtCur(autoRent.diftax))} &nbsp;&nbsp; Lucro: ${escAttr(fmtCur(xLuc))}</td></tr>` : ""}
-          <tr><td colspan="7"><b>Lucro total (${escAttr(calc.cur)}):</b> ${escAttr(fmtCur(lucroTotal))}</td></tr>
-                ${buildRentPaxTableRF("INTER", calc, 7)}
-`) : "";
+      // --- RENT (mais claro: Cobrar do cliente × Pagar na CIA) ---
+      const cobBy = (cat)=>{
+        const out = {adt:0, chd:0, inf:0, total:0};
+        const rows = (calc && Array.isArray(calc.rows)) ? calc.rows : [];
+        for(const r of rows){
+          const t = String(r.t||"").toUpperCase();
+          const qty = Number(r.qty||0) || 0;
+          if(qty<=0) continue;
+          let per = 0;
+          if(cat==="multa") per = Number(r.pen||0) || 0;
+          if(cat==="diftar") per = Number(r.fare||0) || 0;
+          if(cat==="diftax") per = Number(r.tax||0) || 0;
+          const v = per * qty;
+          if(t==="ADT") out.adt += v;
+          if(t==="CHD") out.chd += v;
+          if(t==="INF") out.inf += v;
+          out.total += v;
+        }
+        return out;
+      };
 
-      let rows = "";
-      for(const r of calc.rows){
-        rows += `<tr>
-          <td><b>${escAttr(r.t)}</b> (qtd ${r.qty})</td>
-          <td align="right">${escAttr(fmtCur(r.fare))}</td>
-          <td align="right">${escAttr(fmtCur(r.tax))}</td>
-          <td align="right">${escAttr(fmtCur(r.du))}</td>
-          <td align="right">${escAttr(fmtCur(r.pen))}</td>
-          <td align="right">${escAttr(fmtCur(r.fee))}</td>
-          <td align="right"><b>${escAttr(fmtCur(r.totalTipo))}</b></td>
+      const cobM = cobBy("multa");
+      const cobT = cobBy("diftar");
+      const cobX = cobBy("diftax");
+
+      // totais selecionados
+      let sumCob = 0, sumPago = 0;
+      if(rd.multa){  sumCob += cobM.total; sumPago += pM.total; }
+      if(rd.diftar){ sumCob += cobT.total; sumPago += pT.total; }
+      if(rd.diftax){ sumCob += cobX.total; sumPago += pX.total; }
+      lucroTotal = sumCob - sumPago;
+
+      const rentItemTable = (title, cob, paid)=>{
+        const showAdt = (qtyByType.ADT||0) > 0;
+        const showChd = (qtyByType.CHD||0) > 0;
+        const showInf = (qtyByType.INF||0) > 0;
+
+        const row = (tp, cobV, paidV)=>{
+          return `<tr>
+            <td style="padding:6px;border:1px solid #e5e7eb;"><b>${escAttr(tp)}</b></td>
+            <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtCur(cobV))}</td>
+            <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtCur(paidV))}</td>
+          </tr>`;
+        };
+
+        let body = "";
+        if(showAdt) body += row("ADT", cob.adt, paid.adt);
+        if(showChd) body += row("CHD", cob.chd, paid.chd);
+        if(showInf) body += row("INF", cob.inf, paid.inf);
+
+        body += `<tr>
+          <td style="padding:6px;border:1px solid #e5e7eb;"><b>Total</b></td>
+          <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;"><b>${escAttr(fmtCur(cob.total))}</b></td>
+          <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;"><b>${escAttr(fmtCur(paid.total))}</b></td>
         </tr>`;
-      }
-      if(!rows) rows = `<tr><td colspan="7">Sem valores informados.</td></tr>`;
 
-      const fp = document.getElementById("inter_fp").value;
-      const link = document.getElementById("inter_link").value.trim();
-      const pay = (fp === "Link de pagamento") ? "Link de pagamento (enviado à agência)" : "Faturado";
+        return `
+          <table style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:13px;margin:4px 0 8px 0;">
+            <tr><td colspan="3" style="background-color:#a99ac5;color:white;font-weight:bold;padding:6px;">${escAttr(title)} (${escAttr(calc.cur)}) — valores por PAX</td></tr>
+            <tr>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:left;">Tipo PAX</th>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Cobrar do cliente (auto)</th>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Pagar na CIA (informado)</th>
+            </tr>
+            ${body}
+          </table>
+        `;
+      };
 
-      
-      const includeTks = true;
-
-      const includeCode = false;
-const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".",",")} BRL` : `Câmbio não informado`;
+      const rentRows = (rd.enabled && rd.anyType) ? (`
+        <tr><td colspan="2" style="background-color:#f4cccc; font-weight:bold; padding:6px;">RENTABILIZAÇÃO</td></tr>
+        <tr><td style="padding:6px;"><b>Tipo</b></td><td style="padding:6px;">${escAttr(rentTipos || "-")}</td></tr>
+        <tr><td style="padding:6px;"><b>Moeda</b></td><td style="padding:6px;">${escAttr(calc.cur)}</td></tr>
+        ${rd.multa ? `<tr><td colspan="2" style="padding:0 6px;">${rentItemTable("MULTA", cobM, pM)}</td></tr>` : ""}
+        ${rd.diftar ? `<tr><td colspan="2" style="padding:0 6px;">${rentItemTable("DIF. TARIFA", cobT, pT)}</td></tr>` : ""}
+        ${rd.diftax ? `<tr><td colspan="2" style="padding:0 6px;">${rentItemTable("DIF. TAXA", cobX, pX)}</td></tr>` : ""}
+        
+      `) : "";
 
       return (
         rfHeader("INTER") +
-        `<table border="1" cellspacing="0" cellpadding="3" width="100%">
-          <tr><td colspan="2"><b>LOC</b></td><td colspan="5">${escAttr(c.loc)}</td></tr>
-          ${c.novo_loc ? `<tr><td colspan="2"><b>Novo LOC</b></td><td colspan="5">${escAttr(c.novo_loc)}</td></tr>` : ""}
-          <tr><td colspan="2"><b>PAX</b></td><td colspan="5">${buildPaxTicketPairsHtml(c)}</td></tr>
-          ${includeTks ? `<tr><td colspan="2"><b>Bilhete/OAC</b></td><td colspan="5">${escAttr(maskRFText(ensureTicketHyphen(c.tks)))}</td></tr>` : ""}
-          <tr><td colspan="2"><b>Família</b></td><td colspan="5">${escAttr(c.familia)}</td></tr>
-          <tr><td colspan="2"><b>Bagagem</b></td><td colspan="5">${escAttr(c.bag)}</td></tr>
-          <tr><td colspan="2"><b>Prazo</b></td><td colspan="5">${escAttr(c.prazo)}</td></tr>
-          <tr><td colspan="2"><b>Moeda</b></td><td colspan="5">${escAttr(calc.cur)} • <b>Câmbio</b>: ${escAttr(fxText)}</td></tr>
-          <tr><td colspan="2"><b>Incentivo</b></td><td colspan="5">${escAttr(incentivo)} • <b>Tipo cálculo</b>: ${escAttr(tipo)}</td></tr>
-          <tr><td colspan="2"><b>Pagto</b></td><td colspan="5">${escAttr(pay)}</td></tr>
-
-          <tr><td colspan="7"><b>Valores (${escAttr(calc.cur)})</b></td></tr>
-          <tr>
-            <td><b>Tipo</b></td>
-            <td align="right"><b>Dif. Tarifa</b></td>
-            <td align="right"><b>Dif. Taxa</b></td>
-            <td align="right"><b>DU/Rav</b></td>
-            <td align="right"><b>Multa</b></td>
-            <td align="right"><b>RC</b></td>
-            <td align="right"><b>Total (tipo)</b></td>
-          </tr>
-          ${rows}
-
-          <tr>
-            <td colspan="6" align="right"><b>TOTAL (${escAttr(calc.cur)})</b></td>
-            <td align="right"><b>${escAttr(fmtCur(calc.totalCur))}</b></td>
-          </tr>
-          <tr>
-            <td colspan="6" align="right"><b>TOTAL A COBRAR (BRL)</b></td>
-            <td align="right"><b>${escAttr(fmtBRL(calc.totalBRL))}</b></td>
-          </tr>
-          ${internoRF ? `<tr><td colspan="7"><b>Cálculo (uso interno)</b><br>${internoHtml}</td></tr>` : ""}
-          ${includeCode ? `<tr><td colspan="7"><b>CRR</b>: ${escAttr(raCode)}</td></tr>` : ""}
-          ${rentBlock}
+        `<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px;">
+          <tr><td colspan="2" style="background-color:#d9cce3; font-weight:bold; text-align:center; padding:8px;">${escAttr(buildOpTitle("INTER", c))}</td></tr>
+${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td style="padding:6px;">${escAttr(c.novo_loc)}</td></tr>` : ""}
+          <tr><td style="padding:6px;"><strong>Passageiro(s):</strong></td><td style="padding:6px;">${buildPaxTicketPairsHtml(c)}</td></tr>
+          
+          ${c.oac ? `<tr><td style="padding:6px;"><strong>OAC:</strong></td><td style="padding:6px;">${escAttr(c.oac)}</td></tr>` : ""}
+          <tr><td style="padding:6px;"><strong>Família Tarifária:</strong></td><td style="padding:6px;">${escAttr(c.familia)}</td></tr>
+          <tr><td style="padding:6px;"><strong>Bagagem:</strong></td><td style="padding:6px;">${escAttr(c.bag)}</td></tr>
+<tr><td style="padding:6px;"><strong>Moeda:</strong></td><td style="padding:6px;">${escAttr(calc.cur)} • <strong>Câmbio:</strong> ${escAttr(fxText)}</td></tr>
+          ${(calc.cur !== "USD") ? `<tr><td style="padding:6px;"><strong>Câmbio USD→BRL (RC):</strong></td><td style="padding:6px;">${escAttr(rcFxText)}</td></tr>` : ""}
+          <tr><td style="padding:6px;"><strong>Incentivo:</strong></td><td style="padding:6px;">${escAttr(incentivo)} • <strong>Tipo cálculo:</strong> ${escAttr(tipo)}</td></tr>
+<tr><th style="background-color:#a99ac5; color:white; text-align:left; padding:6px;">Descritivo</th><th style="background-color:#a99ac5; color:white; text-align:left; padding:6px;">Valores</th></tr>
+          ${valueRows}
+          ${internoRF ? `<tr><td colspan="2" style="background-color:#f3f4f6; font-weight:bold; padding:6px;">CÁLCULO — USO INTERNO</td></tr><tr><td colspan="2" style="padding:6px;">${internoHtml}</td></tr>` : ""}
+          ${rentRows}
         </table>`
       );
     }
+
 
     function buildRfObsCode(){
       const mode = getActiveMode();
@@ -2832,12 +3022,6 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
     // ---------- formulário SICA (rentabilização) ----------
     function buildSicaFormHtml(){
       const rd = getRentData();
-      if(!rd.enabled){
-        return "";
-      }
-      if(!rd.anyType){
-        return '<div style="font-family:Segoe UI,Arial,sans-serif;font-size:12px;color:#444;">Selecione <b>Multa</b>, <b>Dif. tarifa</b> e/ou <b>Dif. taxa</b> para gerar o formulário.</div>';
-      }
 
       const mode = getActiveMode();
       const calc = (mode === "NAC") ? calcNac() : calcInter();
@@ -2845,8 +3029,10 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
 
       const fmt = (n)=> (mode === "INTER") ? fmtCur(n) : fmtBRL(n);
       const cur = (mode === "INTER") ? getInterCurrency() : "BRL";
+      const hasVal = (n)=> Math.abs(Number(n || 0)) > 0.000001;
 
-      const paidNum = (cat, pax)=> parseBRNumber((document.getElementById(`rent_pago_cia_${cat}_${pax}`)?.value || "").trim());
+      const paidRaw = (cat, pax)=> (document.getElementById(`rent_pago_cia_${cat}_${pax}`)?.value || "").trim();
+      const paidNum = (cat, pax)=> parseBRNumber(paidRaw(cat, pax));
 
       // Pago na CIA é informado POR PAX (ADT/CHD/INF). Total = valor_por_pax * quantidade_do_tipo.
       const qtyByType = (()=>{
@@ -2865,22 +3051,30 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
         paidNum(cat,"chd") * (qtyByType.CHD || 0) +
         paidNum(cat,"inf") * (qtyByType.INF || 0)
       );
+      const anyPaid = (cat)=> !!(paidRaw(cat,"adt") || paidRaw(cat,"chd") || paidRaw(cat,"inf"));
 
-      const cob = {
-        multa: auto.multa,
-        diftar: auto.diftar,
-        diftax: auto.diftax,
-      };
+      // Valores "cliente" (cobrado) vêm do recálculo (auto)
+      const cob = { multa: auto.multa, diftar: auto.diftar, diftax: auto.diftax };
+      // O que entra na tabela SICA:
+      // Mostra sempre Multa / Dif. tarifa / Dif. taxa (mesmo que o item não esteja marcado),
+      // para evitar esquecimento na abertura do SICA. Quando o item NÃO estiver marcado,
+      // assumimos 'pago na CIA' = 'cobrado' (lucro zero).
+      const sel = { diftar:true, multa:true, diftax:true };
+      const isSel = { diftar: !!rd.diftar, multa: !!rd.multa, diftax: !!rd.diftax };
+
+      // Nosso valor (pago na CIA):
+      // - Se o item estiver marcado e houver 'pago na CIA' preenchido (por pax), usa.
+      // - Caso contrário, assume pago = cobrado.
       const pago = {
-        multa: paidTotal("multa"),
-        diftar: paidTotal("diftar"),
-        diftax: paidTotal("diftax"),
+        multa:  (isSel.multa  && anyPaid("multa"))  ? paidTotal("multa")  : cob.multa,
+        diftar: (isSel.diftar && anyPaid("diftar")) ? paidTotal("diftar") : cob.diftar,
+        diftax: (isSel.diftax && anyPaid("diftax")) ? paidTotal("diftax") : cob.diftax,
       };
 
       let sumCob = 0, sumPago = 0;
-      if(rd.multa){ sumCob += cob.multa; sumPago += pago.multa; }
-      if(rd.diftar){ sumCob += cob.diftar; sumPago += pago.diftar; }
-      if(rd.diftax){ sumCob += cob.diftax; sumPago += pago.diftax; }
+      if(sel.multa){  sumCob += cob.multa;  sumPago += pago.multa; }
+      if(sel.diftar){ sumCob += cob.diftar; sumPago += pago.diftar; }
+      if(sel.diftax){ sumCob += cob.diftax; sumPago += pago.diftax; }
 
       const lucro = sumCob - sumPago;
 
@@ -2898,7 +3092,9 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
         return `<tr>${td(bold?`<b>${label}</b>`:label)}${td(v1, true)}${td(v2, true)}</tr>`;
       };
 
-      const vOrDash = (on, v)=> on ? fmt(v) : "—";
+      const obsTxt = (Math.abs(lucro) < 0.005)
+        ? "SEM RENTABILIZAÇÃO / reemissão feita direto na cia"
+        : `RENTABILIZADO ${stripHtml(fmt(lucro))}${(mode==="INTER" && calc.fx>0)?(" ("+stripHtml(fmtBRL(lucro*calc.fx))+" )"):""} / reemissão feita direto na cia`;
 
       const html =
 `<div style="font-family:Segoe UI,Arial,sans-serif;font-size:12px;color:#111;background:#fff;border:1px solid #e6e6ef;border-radius:12px;padding:12px;">
@@ -2931,9 +3127,9 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
       <td style="padding:8px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;text-align:right;">Valor Cliente (cobrado no SICA) • ${escapeHtml(cur)}</td>
       <td style="padding:8px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;text-align:right;">Nosso Valor (pago na CIA) • ${escapeHtml(cur)}</td>
     </tr>
-    ${row("Dif. tarifa", vOrDash(rd.diftar, cob.diftar), vOrDash(rd.diftar, pago.diftar))}
-    ${row("Multa", vOrDash(rd.multa, cob.multa), vOrDash(rd.multa, pago.multa))}
-    ${row("Dif. taxa", vOrDash(rd.diftax, cob.diftax), vOrDash(rd.diftax, pago.diftax))}
+    ${sel.diftar ? row("Dif. tarifa", fmt(cob.diftar), fmt(pago.diftar)) : ""}
+    ${sel.multa  ? row("Multa", fmt(cob.multa), fmt(pago.multa)) : ""}
+    ${sel.diftax ? row("Dif. taxa", fmt(cob.diftax), fmt(pago.diftax)) : ""}
     ${row("RC/FEE", fmt(0), fmt(0))}
     ${row("Total", fmt(sumCob), fmt(sumPago), true)}
     ${mode === "INTER" && calc.fx > 0 ? row("Total (BRL)", `<b>${fmtBRL(sumCob * calc.fx)}</b>`, `<b>${fmtBRL(sumPago * calc.fx)}</b>`, true) : ""}
@@ -2942,7 +3138,7 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
   </table>
 
   <div style="margin-top:10px;">
-    <b>Observações:</b> ${escapeHtml(`RENTABILIZADO ${stripHtml(fmt(lucro))}${(mode==="INTER" && calc.fx>0)?(" ("+stripHtml(fmtBRL(lucro*calc.fx))+" )"):""} / reemissão feita direto na cia`)}
+    <b>Observações:</b> ${escapeHtml(obsTxt)}
   </div>
 
   ${buildRentPaxTableSica(mode, calc)}
@@ -3034,6 +3230,15 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
       if(oacW) oacW.classList.toggle("hidden", !nacOn);
       placeRentPanel();
 
+    // QTD PAX: re-renderiza os campos + aplica ocultação de tipos (ADT/CHD/INF)
+    for(const id of ["paxq_adt","paxq_chd","paxq_inf"]){
+      const el = document.getElementById(id);
+      if(!el) continue;
+      el.addEventListener("input", renderPaxFields);
+      el.addEventListener("change", renderPaxFields);
+    }
+
+
     // NAC: Serviços (abatimento)
     const _svcOn = document.getElementById("nac_services_on");
     const _svcWrap = document.getElementById("nac_services_wrap");
@@ -3052,9 +3257,13 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
       for(const s of document.querySelectorAll(".rentCur")){ s.textContent = cur; }
     }
 
-    function updateAll(){
+    function updateAll(arg){
+      // arg pode ser Event (listeners) ou um objeto {silent:true}. Não trate Event como silent.
+      const silent = (arg === true) || (arg && arg.silent === true);
+
       toggleRentUI();
       setRentCurrencyLabels();
+
       const mode = getActiveMode();
       if(mode === "NAC"){
         const c = calcNac();
@@ -3062,65 +3271,77 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
         updateRentComputed("NAC", c);
       }else{
         const c = calcInter();
-        const ok = c.fx > 0;
-        setPill(ok, ok ? `INTER • Total: ${fmtBRL(c.totalBRL)} (${c.cur})` : "INTER • Informe o câmbio");
+        const ok = (c.fx > 0) && !c.rcNeedsUsdFx;
+        const msg = ok
+          ? `INTER • Total: ${fmtBRL(c.totalBRL)} (${c.cur})`
+          : (c.fx <= 0 ? "INTER • Informe o câmbio" : "INTER • Informe o câmbio USD → BRL (RC)");
+        setPill(ok, msg);
         updateRentComputed("INTER", c);
       }
-      const sel = document.getElementById("inter_cur").value;
-      document.getElementById("inter_cur_other_wrap").classList.toggle("hidden", sel !== "OTHER");
 
-      // keep OBS code updated live
-      document.getElementById("obsCode").value = buildRfObsCode();
-
-      // formulário SICA (rentabilização)
-      const rd = getRentData();
-      const rfp = document.getElementById("rentFormPreview");
-      const rfc = document.getElementById("rentFormCode");
-      if(!rd.enabled){
-        if(rfc) rfc.value = "";
-        if(rfp && document.activeElement !== rfp) rfp.innerHTML = "";
-      }else{
-        const sicaHtml = buildSicaFormHtml();
-        if(rfc) rfc.value = sicaHtml;
-        if(rfp && document.activeElement !== rfp) rfp.innerHTML = sicaHtml;
+      // "Outra moeda" (INTER)
+      const interCurEl = document.getElementById("inter_cur");
+      const otherWrap = document.getElementById("inter_cur_other_wrap");
+      if(interCurEl && otherWrap){
+        otherWrap.classList.toggle("hidden", interCurEl.value !== "OTHER");
       }
 
-      const rc = document.getElementById("raCode");
-      if(rc && rc.dataset.manual !== "1" && document.activeElement !== rc) rc.value = buildCRRCode();
-    }
+      // Exibe câmbio USD→BRL (RC) apenas quando a moeda não é USD
+      const usdWrap = document.getElementById("inter_fx_usd_wrap");
+      if(usdWrap){
+        const cur = getInterCurrency();
+        usdWrap.classList.toggle("hidden", cur === "USD");
+      }
 
+      // keep OBS code updated live (se existir)
+      const obs = document.getElementById("obsCode");
+      if(obs){
+        obs.value = buildRfObsCode();
+      }
+
+      // formulário SICA (rentabilização) — só atualiza o preview se existir
+      const rfp = document.getElementById("rentFormPreview");
+      if(rfp && document.activeElement !== rfp){
+        rfp.innerHTML = buildSicaFormHtml();
+      }
+
+      // sem toast aqui (senão spamma a cada digitação)
+      return;
+    }
 
     function generateEmail(){
       const errs = validateBeforeGenerate();
       if(errs.length){ setPill(false, "Atenção: revisar dados"); showToast(errs[0]); return ""; }
+
+      // garante que cálculos e ocultações estejam atualizados
+      try{ updateAll(); }catch(e){}
+      try{ renderPaxFields(); }catch(e){}
+
       const mode = getActiveMode();
       const html = (mode === "NAC") ? buildEmailHtmlNac() : buildEmailHtmlInter();
-      document.getElementById("preview").innerHTML = html;
+      const pv = document.getElementById("preview");
+      if(pv) pv.innerHTML = html;
 
       const subj = suggestedSubject();
-      document.getElementById("subjectPill").textContent = "Assunto: " + (subj || "—");
+      const sp = document.getElementById("subjectPill");
+      if(sp) sp.textContent = "Assunto: " + (subj || "—");
 
-      // refresh OBS too
-      document.getElementById("obsCode").value = buildRfObsCode();
+      // atualiza OBS também
+      const obs = document.getElementById("obsCode");
+      if(obs) obs.value = buildRfObsCode();
 
-      // formulário SICA (rentabilização)
-      const rd = getRentData();
+      // formulário SICA (rentabilização) — só preview (sem textarea de código)
+      const sicaHtml = buildSicaFormHtml();
       const rfp = document.getElementById("rentFormPreview");
-      const rfc = document.getElementById("rentFormCode");
-      if(!rd.enabled){
-        if(rfc) rfc.value = "";
-        if(rfp && document.activeElement !== rfp) rfp.innerHTML = "";
-      }else{
-        const sicaHtml = buildSicaFormHtml();
-        if(rfc) rfc.value = sicaHtml;
-        if(rfp && document.activeElement !== rfp) rfp.innerHTML = sicaHtml;
+      if(rfp && document.activeElement !== rfp){
+        rfp.innerHTML = sicaHtml || "";
       }
 
       showToast("Preview atualizado!");
       return html;
     }
 
-    function clearAll(silent){
+function clearAll(silent){
       const ids = Array.from(document.querySelectorAll("input, textarea")).map(e=>e.id);
       for(const id of ids){
         const el = document.getElementById(id);
@@ -3209,19 +3430,18 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
       }
     });
     document.getElementById("btnCopiarRentForm").addEventListener("click", async ()=>{
-      const rd = getRentData();
-      if(!rd.enabled || !rd.anyType){
-        showToast("Ative a rentabilização e selecione o tipo.");
+      const htmlForm = buildSicaFormHtml();
+      if(!htmlForm){
+        showToast("Nada para copiar no formulário de rentabilização.");
         return;
       }
-      const htmlForm = buildSicaFormHtml();
+      const rfp = document.getElementById("rentFormPreview");
+      if(rfp && document.activeElement !== rfp) rfp.innerHTML = htmlForm;
+
       const ok = await copyHtmlToClipboard(htmlForm);
       if(!ok) showToast("Não deu pra copiar automático. Copie pelo preview.");
     });
-
-
-
-    // CRR
+// CRR
     document.getElementById("btnCopiarRACode").addEventListener("click", async ()=>{
       const code = (document.getElementById("raCode").value || buildCRRCode()).trim();
       try{
@@ -3244,24 +3464,7 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
         showToast((e && e.message) ? e.message : "Código inválido.");
       }
     });
-
-    document.getElementById("btnCopiarLinkRACode").addEventListener("click", async ()=>{
-      const code = buildCRRCode();
-      const base = window.location.href.split("#")[0];
-      const url = base + "#" + code;
-      try{
-        await navigator.clipboard.writeText(url);
-        showToast("Link copiado!");
-      }catch(e){
-        showToast("Não deu pra copiar link.");
-      }
-    });
-
     document.getElementById("btnLimpar").addEventListener("click", clearAll);
-    document.getElementById("btnSalvar").addEventListener("click", saveLocal);
-    document.getElementById("btnCarregar").addEventListener("click", loadLocal);
-
-
     function forceUpperKeepCursor(el){
       if(!el || typeof el.value !== "string") return;
       const start = el.selectionStart;
@@ -3293,7 +3496,7 @@ const fxText = calc.fx > 0 ? `1 ${calc.cur} = ${calc.fx.toFixed(4).replace(".","
     const tipEl = document.getElementById("tipBox");
     if(tipEl){
       const tips = [
-        '<b>Dica:</b> o RF costuma aceitar melhor HTML simples (sem CSS). O botão <b>Copiar código OBS (RF)</b> já monta tudo em <code>&lt;table border="1"&gt;</code>.',
+        '<b>Dica:</b> o RF costuma aceitar melhor HTML simples (sem CSS). O botão <b>Copiar código OBS (RF)</b> já monta tudo em <code>&lt;table&gt;</code> (tabela simples com estilos inline).',
         '<b>Dica:</b> Se o RF acusar “cartão”, use bilhete no formato <b>957-1234567890</b> (hífen após 3 dígitos).',
         '<b>Dica:</b> Use o <b>CRR</b> para reabrir o cálculo no outro PC/colaborador sem redigitar tudo.',
         '<b>Dica:</b> Para CCO, prefira colar o <b>código OBS (RF)</b> direto na OP — fica claro e padronizado.'
