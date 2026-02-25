@@ -3288,25 +3288,7 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
       const oacW = document.getElementById("oacWrap");
       if(oacW) oacW.classList.toggle("hidden", !nacOn);
       placeRentPanel();
-
-    // QTD PAX: re-renderiza os campos + aplica ocultação de tipos (ADT/CHD/INF)
-    for(const id of ["paxq_adt","paxq_chd","paxq_inf"]){
-      const el = document.getElementById(id);
-      if(!el) continue;
-      el.addEventListener("input", renderPaxFields);
-      el.addEventListener("change", renderPaxFields);
-    }
-
-
-    // NAC: Serviços (abatimento)
-    const _svcOn = document.getElementById("nac_services_on");
-    const _svcWrap = document.getElementById("nac_services_wrap");
-    const _svcVal = document.getElementById("nac_services_brl");
-    const _toggleSvc = ()=>{ if(_svcWrap) _svcWrap.style.display = (_svcOn && _svcOn.checked) ? "block" : "none"; updateAll(); };
-    if(_svcOn){ _svcOn.addEventListener("change", _toggleSvc); }
-    if(_svcVal){ _svcVal.addEventListener("input", updateAll); _svcVal.addEventListener("change", updateAll); }
-    _toggleSvc();
-      updateAll();
+      updateAll({silent:true});
       renderPaxFields();
     }
 
@@ -3322,6 +3304,11 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
 
       toggleRentUI();
       setRentCurrencyLabels();
+
+      // NAC: Serviços (abatimento) — apenas mostra/esconde o campo
+      const _svcOn = document.getElementById("nac_services_on");
+      const _svcWrap = document.getElementById("nac_services_wrap");
+      if(_svcOn && _svcWrap){ _svcWrap.style.display = _svcOn.checked ? "block" : "none"; }
 
       const mode = getActiveMode();
       if(mode === "NAC"){
