@@ -2833,8 +2833,10 @@ function rfHeader(mode){
         const showInf = (qtyByType.INF||0) > 0;
 
         const row = (tp, cobV, paidV)=>{
+          const q = (qtyByType[tp]||0);
+          const tpLabel = q ? `${tp} (qtd ${q})` : tp;
           return `<tr>
-            <td style="padding:6px;border:1px solid #e5e7eb;"><b>${escAttr(tp)}</b></td>
+            <td style="padding:6px;border:1px solid #e5e7eb;"><b>${escAttr(tpLabel)}</b></td>
             <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtBRL(cobV))}</td>
             <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtBRL(paidV))}</td>
           </tr>`;
@@ -2853,9 +2855,9 @@ function rfHeader(mode){
 
         return `
           <table style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:13px;margin:4px 0 8px 0;">
-            <tr><td colspan="3" style="background-color:#a99ac5;color:white;font-weight:bold;padding:6px;">${escAttr(title)} (BRL) — valores por PAX</td></tr>
+            <tr><td colspan="3" style="background-color:#a99ac5;color:white;font-weight:bold;padding:6px;">${escAttr(title)} (BRL) — total por tipo de PAX</td></tr>
             <tr>
-              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:left;">Tipo PAX</th>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:left;">Tipo PAX (qtd)</th>
               <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Cobrar do cliente (auto)</th>
               <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Pagar na CIA (informado)</th>
             </tr>
@@ -3007,8 +3009,10 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
         const showInf = (qtyByType.INF||0) > 0;
 
         const row = (tp, cobV, paidV)=>{
+          const q = (qtyByType[tp]||0);
+          const tpLabel = q ? `${tp} (qtd ${q})` : tp;
           return `<tr>
-            <td style="padding:6px;border:1px solid #e5e7eb;"><b>${escAttr(tp)}</b></td>
+            <td style="padding:6px;border:1px solid #e5e7eb;"><b>${escAttr(tpLabel)}</b></td>
             <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtCur(cobV))}</td>
             <td style="padding:6px;border:1px solid #e5e7eb;text-align:right;white-space:nowrap;">${escAttr(fmtCur(paidV))}</td>
           </tr>`;
@@ -3027,9 +3031,9 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
 
         return `
           <table style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:13px;margin:4px 0 8px 0;">
-            <tr><td colspan="3" style="background-color:#a99ac5;color:white;font-weight:bold;padding:6px;">${escAttr(title)} (${escAttr(calc.cur)}) — valores por PAX</td></tr>
+            <tr><td colspan="3" style="background-color:#a99ac5;color:white;font-weight:bold;padding:6px;">${escAttr(title)} (${escAttr(calc.cur)}) — total por tipo de PAX</td></tr>
             <tr>
-              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:left;">Tipo PAX</th>
+              <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:left;">Tipo PAX (qtd)</th>
               <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Cobrar do cliente (auto)</th>
               <th style="background:#eef2ff;padding:6px;border:1px solid #e5e7eb;text-align:right;">Pagar na CIA (informado)</th>
             </tr>
