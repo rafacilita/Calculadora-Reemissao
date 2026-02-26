@@ -1529,7 +1529,9 @@ function updateRentComputed(mode, calc){
     }
     function parseBRNumber(v){
       if(v === null || v === undefined) return 0;
-      const s = String(v).trim();
+      let s = String(v).trim();
+      // normaliza diferentes caracteres de sinal (ex.: U+2212) para o hífen padrão
+      s = s.replace(/[\u2212\u2013\u2014]/g, "-");
       if(!s) return 0;
       let x = s.replace(/[^\d,.\-]/g, "");
       if(x.includes(".") && x.includes(",")){
@@ -2241,6 +2243,7 @@ const store = getPaxStore();
     function _compactNumberMaybe(s){
       if(typeof s !== "string") return null;
       let x = s.trim();
+      x = x.replace(/[\u2212\u2013\u2014]/g, "-");
       if(!x) return null;
       // aceita "300", "300.5", "300,50", "1.234,56"
       if(x.includes(",") && x.includes(".")){ x = x.replace(/\./g,"").replace(",","."); }
