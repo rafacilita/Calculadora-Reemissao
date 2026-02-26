@@ -485,10 +485,6 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
       </div>
       <div class="titles">
         <h1>Calculadora de Reemissão</h1>
-        <div class="sub">
-          Gere o e-mail pra agência e, <b>se aprovado</b>, cole o <b>código</b> na <b>observação da OP no RF (Reserva Fácil)</b> para o <b>CCO</b> visualizar a tabela com valores.
-          <span class="muted">LGPD: não trafegar dados de cartão.</span>
-        </div>
       </div>
 
       <div class="themeCtl">
@@ -2357,11 +2353,13 @@ function buildCRRCode(){
         if(!el) continue;
 
         if(el.type === "checkbox"){
-          el.checked = (v === true || v === "true" || v === "on" || v === "1");
+          // CRR4 usa 1/0 para compactar booleanos
+          el.checked = (v === true || v === 1 || v === "1" || v === "true" || v === "on" || v === "yes");
           continue;
         }
         if(el.type === "radio"){
-          el.checked = (el.value === v);
+          // normaliza (alguns valores podem vir como número no CRR4)
+          el.checked = (String(el.value) === String(v));
           continue;
         }
         if(["loc","novo_loc","oac","familia"].includes(k) && typeof v === "string"){ el.value = v.toUpperCase(); }
@@ -3113,12 +3111,16 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
       const anyPaid = (cat)=> !!(paidRaw(cat,"adt") || paidRaw(cat,"chd") || paidRaw(cat,"inf"));
 
       // Valores "cliente" (cobrado) vêm do recálculo (auto)
-      const cob = { multa: auto.multa, diftar: auto.diftar, diftax: auto.diftax };
+      const rcUsdTotal = (mode === "INTER") ? ((calc && Array.isArray(calc.rows)) ? calc.rows.reduce((s,r)=> s + (Number(r.feeUSD||0) * Number(r.qty||0)), 0) : 0) : 0;
+      const rcCurTotal = (mode === "INTER") ? ((calc && Array.isArray(calc.rows)) ? calc.rows.reduce((s,r)=> s + (Number(r.feeCur||0) * Number(r.qty||0)), 0) : 0) : 0;
+
+      const cob = { multa: auto.multa, diftar: auto.diftar, diftax: auto.diftax, rc: rcCurTotal };
       // O que entra na tabela SICA:
       // Mostra sempre Multa / Dif. tarifa / Dif. taxa (mesmo que o item não esteja marcado),
       // para evitar esquecimento na abertura do SICA. Quando o item NÃO estiver marcado,
       // assumimos 'pago na CIA' = 'cobrado' (lucro zero).
       const sel = { diftar:true, multa:true, diftax:true };
+      const selRC = (mode === "INTER");
       const isSel = { diftar: !!rd.diftar, multa: !!rd.multa, diftax: !!rd.diftax };
 
       // Nosso valor (pago na CIA):
@@ -3128,18 +3130,21 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
         multa:  (isSel.multa  && anyPaid("multa"))  ? paidTotal("multa")  : cob.multa,
         diftar: (isSel.diftar && anyPaid("diftar")) ? paidTotal("diftar") : cob.diftar,
         diftax: (isSel.diftax && anyPaid("diftax")) ? paidTotal("diftax") : cob.diftax,
+        rc: cob.rc,
       };
 
       let sumCob = 0, sumPago = 0;
       if(sel.multa){  sumCob += cob.multa;  sumPago += pago.multa; }
       if(sel.diftar){ sumCob += cob.diftar; sumPago += pago.diftar; }
       if(sel.diftax){ sumCob += cob.diftax; sumPago += pago.diftax; }
+      if(selRC){ sumCob += cob.rc; sumPago += pago.rc; }
 
       const lucro = sumCob - sumPago;
 
       const today = new Date().toLocaleDateString("pt-BR");
       const op = (document.getElementById("op_rf")?.value || "").trim();
       const loc = (document.getElementById("loc")?.value || "").trim();
+      const novoLoc = (document.getElementById("novo_loc")?.value || "").trim();
       const cia = (document.getElementById("cia")?.value || "").trim();
       const agencia = (document.getElementById("agencia")?.value || "").trim();
       const filial = (document.getElementById("filial")?.value || "LOT").trim();
@@ -3172,6 +3177,10 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
       <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Filial</b></td>
       <td style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(filial || "-")}</td>
     </tr>
+    ${novoLoc ? `<tr>
+      <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Novo LOC</b></td>
+      <td colspan="3" style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(novoLoc)}</td>
+    </tr>` : ""}
     <tr>
       <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Agência</b></td>
       <td colspan="3" style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(agencia || "-")}</td>
@@ -3189,7 +3198,7 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
     ${sel.diftar ? row("Dif. tarifa", fmt(cob.diftar), fmt(pago.diftar)) : ""}
     ${sel.multa  ? row("Multa", fmt(cob.multa), fmt(pago.multa)) : ""}
     ${sel.diftax ? row("Dif. taxa", fmt(cob.diftax), fmt(pago.diftax)) : ""}
-    ${row("RC/FEE", fmt(0), fmt(0))}
+    ${selRC ? ((cur === "USD") ? row("RC/FEE", fmt(cob.rc), fmt(pago.rc)) : (row("RC/FEE (USD)", fmtUSD(rcUsdTotal), fmtUSD(rcUsdTotal)) + row(`RC/FEE (${cur})`, fmt(cob.rc), fmt(pago.rc)))) : ""}
     ${row("Total", fmt(sumCob), fmt(sumPago), true)}
     ${mode === "INTER" && calc.fx > 0 ? row("Total (BRL)", `<b>${fmtBRL(sumCob * calc.fx)}</b>`, `<b>${fmtBRL(sumPago * calc.fx)}</b>`, true) : ""}
     ${row("Lucro", `<b style="color:${lucro>=0?'#0a7a33':'#b42318'}">${fmt(lucro)}</b>`, "", true)}
