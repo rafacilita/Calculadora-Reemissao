@@ -474,6 +474,19 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 /* Fallbacks caso classes não existam (não quebra nada) */
 [data-theme="light"] h1,[data-theme="light"] h2{color:#0f172a}
 
+/* NAC airline selector (GOL/LATAM/AZUL) */
+.airlineSelector{display:flex;gap:10px;flex-wrap:nowrap;margin-top:6px;padding:4px}
+.airBtn{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;height:52px;border-radius:14px;border:2px solid rgba(17,24,39,.14);background:#fff;cursor:pointer;user-select:none;transition:transform .02s ease, box-shadow .12s ease, border-color .12s ease, background-color .12s ease}
+.airBtn:hover{box-shadow:0 6px 18px rgba(17,24,39,.08);border-color:rgba(17,24,39,.22)}
+.airBtn:active{transform:scale(.99)}
+.airBtn.active{border-color:#7c3aed;background:rgba(124,58,237,.06);box-shadow:0 0 0 4px rgba(124,58,237,.18), 0 10px 26px rgba(124,58,237,.22);transform:translateY(-1px) scale(1.01)}
+.airBtn.active .airCode{opacity:1;color:#4c1d95}
+.airBtn.active .airLogo{filter:drop-shadow(0 2px 6px rgba(17,24,39,.18))}
+.airBtn.active:active{transform:translateY(-1px) scale(.99)}
+.airBtn:focus-visible{outline:3px solid rgba(124,58,237,.35);outline-offset:2px}
+.airLogo{display:inline-flex;align-items:center;justify-content:center;height:30px;width:auto;max-width:86px;border-radius:10px;overflow:hidden;background:transparent}
+.airLogo img{display:block;height:30px;width:auto}
+.airCode{font-weight:900;font-size:12px;color:#111827;opacity:.8}
 </style>
 </head>
 <body>
@@ -687,21 +700,33 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 
         <!-- COMMON -->
         <div class="grid">
-          <div>
+          <div id="ciaWrap">
             <label>Cia aérea</label>
+
+            <!-- NAC: seletor de cia (GOL/LATAM/AZUL). INTER: campo livre -->
+            <div id="ciaNacSelector" class="airlineSelector hidden" aria-label="Selecionar cia (NAC)">
+              
+              <button type="button" class="airBtn" data-cia="AD" title="AZUL">
+              <span class="airLogo"><img alt="AZUL" src="data:image/png;base64,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" /></span>
+              <span class="airCode">AD</span>
+              </button>
+              
+              <button type="button" class="airBtn" data-cia="G3" title="GOL">
+              <span class="airLogo"><img alt="GOL" src="data:image/png;base64,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" /></span>
+              <span class="airCode">G3</span>
+              </button>
+              
+              <button type="button" class="airBtn" data-cia="LA" title="LATAM">
+              <span class="airLogo"><img alt="LATAM" src="data:image/png;base64,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" /></span>
+              <span class="airCode">LA</span>
+              </button>
+              
+            
+            </div>
+
             <input id="cia" placeholder="Ex.: LA / G3 / AD / TP..." />
-          </div>
-          <div>
-            <label>Prazo</label>
-            <select id="prazo">
-              <option>Imediato</option>
-              <option>Até 30 min</option>
-              <option>Até 1h</option>
-              <option>Até 2h</option>
-              <option>Outro</option>
-            </select>
-          </div>
-          <div class="grid3" style="grid-column: 1 / -1;">
+</div>
+<div class="grid3" style="grid-column: 1 / -1;">
             <div>
               <label>Localizador (LOC)</label>
               <input id="loc" placeholder="Ex.: ABC123" />
@@ -824,7 +849,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
             <div><label>Multa (INF)</label><input id="nac_pen_INF" placeholder="0,00" /></div>
           </div>
           <div class="row" style="margin-top:10px">
-            <div style="display:flex; align-items:center; gap:10px">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
               <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
                 <input type="checkbox" id="nac_services_on" />
                 <span><b>Serviços</b></span>
@@ -832,6 +857,14 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
               <div id="nac_services_wrap" style="display:none; flex:1; max-width:340px">
                 <label>Valor de serviços (BRL)</label>
                 <input id="nac_services_brl" placeholder="0,00" />
+              </div>
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+                <input type="checkbox" id="nac_folio_on" />
+                <span><b>Fólio</b></span>
+              </label>
+              <div id="nac_folio_wrap" style="display:none; flex:1; min-width:260px; max-width:520px">
+                <label>Fólio (texto livre)</label>
+                <textarea id="nac_folio_text" placeholder="Digite o fólio/observação aqui (opcional)" style="min-height:42px"></textarea>
               </div>
             </div>
           </div>
@@ -1015,7 +1048,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         </div>
 
         <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--cco">CCO</span> <b>3) Código para OBS (OP no RF)</b> — cole direto na observação pra equipe de reemissão (CCO) ver a tabela.</div>
-        <textarea id="obsCode" class="codebox" spellcheck="false" aria-label="Código para Observação no RF"></textarea>
+        <textarea id="obsCode" class="codebox" style="display:none" spellcheck="false" aria-label="Código para Observação no RF"></textarea>
 
         <div class="btns" style="margin-top:10px">
           <button class="action cco" id="btnCopiarObs">Copiar código OBS (RF)</button>
@@ -1029,8 +1062,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--sys">CRR</span> <b>4) CRR (código de registro de reemissão)</b> — copie/cole este código na OP (RF) ou no Teams/e-mail. Depois, cole aqui e clique em “Carregar”.</div>
         <textarea id="raCode" class="codebox" style="min-height:96px" spellcheck="false" aria-label="CRR para reabrir cálculo"></textarea>
         <div class="btns" style="margin-top:10px">
-          <button class="action" id="btnCopiarRACode">Copiar CRR</button>
-          <button class="action" id="btnCarregarRACode">Carregar CRR</button>
+                    <button class="action" id="btnCarregarRACode">Carregar CRR</button>
 </div>
         <div class="muted small" style="margin-top:8px">Se você colar um texto maior (ex.: a observação inteira do RF), o sistema tenta achar automaticamente o trecho <b>CRR2-...</b> (ou <b>CRR1/RA1</b> antigos).</div>
 
@@ -1326,8 +1358,8 @@ body += `<tr>
       const fmt = (mode === "INTER") ? fmtCur : fmtBRL;
       const cur = rp.cur;
 
-      const th = (txt, right=false)=>`<th style="padding:8px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;${right?'text-align:right;':''}">${txt}</th>`;
-      const td = (txt, right=false)=>`<td style="padding:7px 8px;border:1px solid #d9d9e6;${right?'text-align:right;white-space:nowrap;':''}">${txt}</td>`;
+      const th = (txt, right=false)=>`<th style="padding:6px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;${right?'text-align:right;':''}">${txt}</th>`;
+      const td = (txt, right=false)=>`<td style="padding:5px 6px;border:1px solid #d9d9e6;${right?'text-align:right;white-space:nowrap;':''}">${txt}</td>`;
 
       let rows = "";
       for(let i=0;i<rp.rows.length;i++){
@@ -1358,7 +1390,7 @@ rows += `<tr>
       return `
         <div style="height:10px;"></div>
         <div style="font-weight:700;margin:0 0 6px 0;">Rentabilização por passageiro <span style="color:#666;font-weight:400">(dividido por tipo de PAX)</span></div>
-        <table style="width:100%;border-collapse:collapse;">
+        <table width="760" style="width:760px;max-width:760px;border-collapse:collapse;">
           <tr>
             ${th("PAX")}
             ${th("Composição (Cliente × CIA)", false)}
@@ -1601,6 +1633,15 @@ function fmtNumPT(n){
         .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
         .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
     }
+    function ciaFullNameForAgency(ciaRaw){
+      const c = String(ciaRaw || "").trim();
+      const u = c.toUpperCase();
+      if(u === "AD" || u === "AZUL") return "Azul";
+      if(u === "LA" || u === "LATAM") return "LATAM";
+      if(u === "G3" || u === "GOL") return "GOL";
+      return c;
+    }
+
     function escAttr(s){
       // safer for RF-ish environments
       return escapeHtml(s).replace(/`/g,"");
@@ -2230,7 +2271,7 @@ const store = getPaxStore();
 
     // ----- CRR4: mesmo conteúdo do CRR3, mas com chaves compactadas (reduz bem o tamanho) -----
     // Mapeia ids de campos -> índice base36 (ex.: "cia" -> "a") antes de compactar.
-    const CRR4_KEYS = ["themeSel","rentab","op_rf","agencia","filial","rent_tipo_multa","rent_tipo_diftar","rent_tipo_diftax","rent_pago_cia_multa_adt","rent_pago_cia_multa_chd","rent_pago_cia_multa_inf","rent_cobrar_ag_multa","rent_lucro_multa","rent_pago_cia_diftar_adt","rent_pago_cia_diftar_chd","rent_pago_cia_diftar_inf","rent_cobrar_ag_diftar","rent_lucro_diftar","rent_pago_cia_diftax_adt","rent_pago_cia_diftax_chd","rent_pago_cia_diftax_inf","rent_cobrar_ag_diftax","rent_lucro_diftax","cia","prazo","loc","oac","novo_loc","paxq_adt","paxq_chd","paxq_inf","pax_json","familia","pax","tks","bag","parcelamento","nac_fp","nac_link","nac_qty_ADT","nac_old_ADT","nac_new_ADT","nac_tax_ADT","nac_du_ADT","nac_pen_ADT","nac_qty_CHD","nac_old_CHD","nac_new_CHD","nac_tax_CHD","nac_du_CHD","nac_pen_CHD","nac_qty_INF","nac_old_INF","nac_new_INF","nac_tax_INF","nac_du_INF","nac_pen_INF","nac_services_on","nac_services_brl","nac_voos","nac_regras","inter_cur","inter_cur_other","inter_fx","inter_fx_usd","inter_incentivo","inter_tipo","inter_fp","inter_link","inter_qty_ADT","inter_fare_ADT","inter_tax_ADT","inter_du_ADT","inter_pen_ADT","inter_fee_ADT","inter_qty_CHD","inter_fare_CHD","inter_tax_CHD","inter_du_CHD","inter_pen_CHD","inter_fee_CHD","inter_qty_INF","inter_fare_INF","inter_tax_INF","inter_du_INF","inter_pen_INF","inter_fee_INF","inter_original","inter_voos","inter_interno","rf_include_racode","rf_mask_numbers","rf_include_tks"];
+    const CRR4_KEYS = ["themeSel","rentab","op_rf","agencia","filial","rent_tipo_multa","rent_tipo_diftar","rent_tipo_diftax","rent_pago_cia_multa_adt","rent_pago_cia_multa_chd","rent_pago_cia_multa_inf","rent_cobrar_ag_multa","rent_lucro_multa","rent_pago_cia_diftar_adt","rent_pago_cia_diftar_chd","rent_pago_cia_diftar_inf","rent_cobrar_ag_diftar","rent_lucro_diftar","rent_pago_cia_diftax_adt","rent_pago_cia_diftax_chd","rent_pago_cia_diftax_inf","rent_cobrar_ag_diftax","rent_lucro_diftax","cia","prazo","loc","oac","novo_loc","paxq_adt","paxq_chd","paxq_inf","pax_json","familia","pax","tks","bag","parcelamento","nac_fp","nac_link","nac_qty_ADT","nac_old_ADT","nac_new_ADT","nac_tax_ADT","nac_du_ADT","nac_pen_ADT","nac_qty_CHD","nac_old_CHD","nac_new_CHD","nac_tax_CHD","nac_du_CHD","nac_pen_CHD","nac_qty_INF","nac_old_INF","nac_new_INF","nac_tax_INF","nac_du_INF","nac_pen_INF","nac_services_on","nac_services_brl","nac_folio_on","nac_folio_text","nac_voos","nac_regras","inter_cur","inter_cur_other","inter_fx","inter_fx_usd","inter_incentivo","inter_tipo","inter_fp","inter_link","inter_qty_ADT","inter_fare_ADT","inter_tax_ADT","inter_du_ADT","inter_pen_ADT","inter_fee_ADT","inter_qty_CHD","inter_fare_CHD","inter_tax_CHD","inter_du_CHD","inter_pen_CHD","inter_fee_CHD","inter_qty_INF","inter_fare_INF","inter_tax_INF","inter_du_INF","inter_pen_INF","inter_fee_INF","inter_original","inter_voos","inter_interno","rf_include_racode","rf_mask_numbers","rf_include_tks"];
     const CRR4_ID2K = {};
     const CRR4_K2ID = {};
     for(let i=0;i<CRR4_KEYS.length;i++){ 
@@ -2467,7 +2508,7 @@ function buildCRRCode(){
     function getCommon(){
       return {
         cia: document.getElementById("cia").value.trim(),
-        prazo: document.getElementById("prazo").value.trim(),
+        prazo: (document.getElementById("prazo") ? document.getElementById("prazo").value.trim() : "Imediato"),
         loc: document.getElementById("loc").value.trim().toUpperCase(),
         novo_loc: (document.getElementById("novo_loc") ? document.getElementById("novo_loc").value.trim().toUpperCase() : ""),
         pax: document.getElementById("pax").value.trim(),
@@ -2527,9 +2568,28 @@ function buildCRRCode(){
       const fp = document.getElementById("nac_fp").value;
       const link = document.getElementById("nac_link").value.trim();
       const voos = document.getElementById("nac_voos").value.trim();
-      const regrasUser = document.getElementById("nac_regras").value.trim();
+      const regrasUserRaw = document.getElementById("nac_regras").value.trim();
+      const isAzul = /(^|[\s,\/])(?:AD|AZUL)($|[\s,\/])/i.test(String(common.cia||"").trim());
+      const isLatamGol = /(^|[\s,\/])(?:LA|LATAM|G3|GOL)($|[\s,\/])/i.test(String(common.cia||"").trim());
+      const regrasUser = (function(){
+        let t = regrasUserRaw || "";
+        if(!isAzul && !isLatamGol) return t;
 
-      const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
+        // Se o usuário colou alguma regra automática no campo "Regras",
+        // removemos daqui para não duplicar (ela já aparece na lista de bullets).
+        const lines = t.split(/\r?\n/).filter(l => {
+          const n = (l || "").toLowerCase();
+
+          const isAz = n.includes("reemiss") && n.includes("azul") && (n.includes("crédito") || n.includes("credito"));
+          const isLG = n.includes("novo loc") && n.includes("localizador original") && n.includes("cancel");
+
+          return !(isAz || isLG);
+        });
+
+        return lines.join("\n").trim();
+      })();
+
+const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
         ? `
             <tr>
               <td colspan="8" style="text-align:right"><b>Serviços (abatimento)</b></td>
@@ -2556,22 +2616,26 @@ function buildCRRCode(){
         ? `<p style="margin:8px 0 0">Para pagamento via cartão, preencha os dados no link e nos responda com a quantidade de parcelas caso seja parcelado: <b><a href="${escapeHtml((/^https?:\/\//i.test(link)?link:`https://${link}`))}" target="_blank" rel="noopener">${escapeHtml(link)}</a></b></p>`
         : `<p style="margin:8px 0 0">Forma de pagamento: <b>${escapeHtml(fp)}</b></p>`;
 
+      const azulRuleLi = isAzul ? `<li>${escapeHtml(AZUL_RULE_TEXT)}</li>` : "";
+      const latamGolRuleLi = (isLatamGol && !isAzul) ? `<li>${escapeHtml(LATAM_GOL_RULE_TEXT)}</li>` : "";
       const regrasPadrao = `
         <ul style="margin:8px 0 0; padding-left:18px">
-          <li>Em casos de reservas realizadas para o cálculo, caso não prossiga com a remarcação, o LOC deverá ser cancelado em até <b>30 minutos</b> para evitar risco de ADM (duplicidade), onde o mesmo poderá ser repassado para a agência.</li>
-          <li>Solicitações com menos de <b>2h</b> do embarque original poderão acarretar em multa de <b>no show</b>.</li>
+          ${azulRuleLi}
+          ${latamGolRuleLi}
+<li>Solicitações com menos de <b>2h</b> do embarque original poderão acarretar em multa de <b>no show</b>.</li>
         </ul>
       `;
-      const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b><br/>${brToHtml(regrasUser)}</p>` : "";
+const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b><br/>${brToHtml(regrasUser)}</p>` : "";
 
       return `
         <div style="font-family:Arial, sans-serif; font-size:13px; color:#0b0f17">
           <p>Segue abaixo cálculo de reemissão conforme solicitado.</p>
+          
 
           <table border="1" cellspacing="0" cellpadding="6" width="760" style="width:760px; max-width:760px; margin:0; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse; border:1px solid #c7ced9">
             <tr><td colspan="2" style="background-color:#d9cce3; font-weight:bold; text-align:center; padding:8px; font-size:14px;">CÁLCULO DE REEMISSÃO NACIONAL</td></tr>
             <tr><td colspan="2" style="text-align:center; padding:8px;"><b>ATENÇÃO:</b> CONFIRA TODOS OS DADOS ANTES DE APROVAR A REEMISSÃO.<br/>VALORES SUJEITOS A ALTERAÇÃO</td></tr>
-            <tr><td style="width:32%"><b>Cia Aérea</b></td><td>${escapeHtml(common.cia)}</td></tr>
+            <tr><td style="width:32%"><b>Cia Aérea</b></td><td>${escapeHtml(ciaFullNameForAgency(common.cia))}</td></tr>
             <tr><td><b>Prazo</b></td><td>${escapeHtml(common.prazo)}</td></tr>
             <tr><td><b>Localizador</b></td><td>${escapeHtml(common.loc)}</td></tr>
             ${common.novo_loc ? `<tr><td><b>Novo LOC</b></td><td>${escapeHtml(common.novo_loc)}</td></tr>` : ""}
@@ -2629,6 +2693,9 @@ function buildCRRCode(){
       const original = document.getElementById("inter_original").value.trim();
       const voos = document.getElementById("inter_voos").value.trim();
       const interno = document.getElementById("inter_interno").value.trim();
+      const isAzul = /(^|[\s,\/])(?:AD|AZUL)($|[\s,\/])/i.test(String(common.cia||"").trim());
+      const azulMsg = "";
+
 
       const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
         ? `
@@ -2663,11 +2730,12 @@ function buildCRRCode(){
       return `
         <div style="font-family:Arial, sans-serif; font-size:13px; color:#0b0f17">
           <p>Segue abaixo cálculo de reemissão conforme solicitado.</p>
+          ${azulMsg}
 
           <table border="1" cellspacing="0" cellpadding="6" width="760" style="width:760px; max-width:760px; margin:0; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse; border:1px solid #c7ced9">
             <tr><td colspan="2" style="background-color:#d9cce3; font-weight:bold; text-align:center; padding:8px; font-size:14px;">CÁLCULO DE REEMISSÃO INTERNACIONAL</td></tr>
             <tr><td colspan="2" style="text-align:center; padding:8px;"><b>ATENÇÃO:</b> CONFIRA TODOS OS DADOS ANTES DE APROVAR A REEMISSÃO.<br/>VALORES SUJEITOS A ALTERAÇÃO</td></tr>
-            <tr><td style="width:32%"><b>Cia Aérea</b></td><td>${escapeHtml(common.cia)}</td></tr>
+            <tr><td style="width:32%"><b>Cia Aérea</b></td><td>${escapeHtml(ciaFullNameForAgency(common.cia))}</td></tr>
             <tr><td><b>Prazo</b></td><td>${escapeHtml(common.prazo)}</td></tr>
             <tr><td><b>Localizador do Cálculo</b></td><td>${escapeHtml(common.loc)}</td></tr>
             ${common.novo_loc ? `<tr><td><b>Novo LOC</b></td><td>${escapeHtml(common.novo_loc)}</td></tr>` : ""}
@@ -3158,7 +3226,7 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
 
       const row = (label, v1, v2, bold=false)=>{
         const td = (txt, alignRight=false)=>{
-          return `<td style="padding:7px 8px;border:1px solid #d9d9e6;${alignRight?'text-align:right;white-space:nowrap;':''}">${txt}</td>`;
+          return `<td style="padding:5px 6px;border:1px solid #d9d9e6;${alignRight?'text-align:right;white-space:nowrap;':''}">${txt}</td>`;
         };
         return `<tr>${td(bold?`<b>${label}</b>`:label)}${td(v1, true)}${td(v2, true)}</tr>`;
       };
@@ -3168,39 +3236,39 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
         : `RENTABILIZADO ${stripHtml(fmt(lucro))}${(mode==="INTER" && calc.fx>0)?(" ("+stripHtml(fmtBRL(lucro*calc.fx))+" )"):""} / reemissão feita direto na cia`;
 
       const html =
-`<div style="font-family:Segoe UI,Arial,sans-serif;font-size:12px;color:#111;background:#fff;border:1px solid #e6e6ef;border-radius:12px;padding:12px;">
+`<div style="font-family:Segoe UI,Arial,sans-serif;font-size:11px;color:#111;background:#fff;border:1px solid #e6e6ef;border-radius:10px;padding:10px;box-sizing:border-box;width:760px;max-width:760px;margin:0;">
   <div style="text-align:center;font-weight:800;letter-spacing:.3px;margin:0 0 10px 0;">FORMULÁRIO DE RENTABILIDADE</div>
 
-  <table style="width:100%;border-collapse:collapse;">
+  <table width="760" style="width:760px;max-width:760px;border-collapse:collapse;">
     <tr>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Data</b></td>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(today)}</td>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>OP</b></td>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(op || "-")}</td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;"><b>Data</b></td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;">${escapeHtml(today)}</td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;"><b>OP</b></td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;">${escapeHtml(op || "-")}</td>
     </tr>
     <tr>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Localizador/Cia</b></td>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml((loc||"-") + (cia?(" / "+cia):""))}</td>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Filial</b></td>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(filial || "-")}</td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;"><b>Localizador/Cia</b></td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;">${escapeHtml((loc||"-") + (cia?(" / "+cia):""))}</td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;"><b>Filial</b></td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;">${escapeHtml(filial || "-")}</td>
     </tr>
     ${novoLoc ? `<tr>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Novo LOC</b></td>
-      <td colspan="3" style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(novoLoc)}</td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;"><b>Novo LOC</b></td>
+      <td colspan="3" style="padding:5px 6px;border:1px solid #d9d9e6;">${escapeHtml(novoLoc)}</td>
     </tr>` : ""}
     <tr>
-      <td style="padding:7px 8px;border:1px solid #d9d9e6;"><b>Agência</b></td>
-      <td colspan="3" style="padding:7px 8px;border:1px solid #d9d9e6;">${escapeHtml(agencia || "-")}</td>
+      <td style="padding:5px 6px;border:1px solid #d9d9e6;"><b>Agência</b></td>
+      <td colspan="3" style="padding:5px 6px;border:1px solid #d9d9e6;">${escapeHtml(agencia || "-")}</td>
     </tr>
   </table>
 
   <div style="height:10px;"></div>
 
-  <table style="width:100%;border-collapse:collapse;">
+  <table width="760" style="width:760px;max-width:760px;border-collapse:collapse;">
     <tr>
-      <td style="padding:8px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;">Itens</td>
-      <td style="padding:8px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;text-align:right;">Valor Cliente (cobrado no SICA) • ${escapeHtml(cur)}</td>
-      <td style="padding:8px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;text-align:right;">Nosso Valor (pago na CIA) • ${escapeHtml(cur)}</td>
+      <td style="padding:6px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;">Itens</td>
+      <td style="padding:6px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;text-align:right;">Valor Cliente (cobrado no SICA) • ${escapeHtml(cur)}</td>
+      <td style="padding:6px;border:1px solid #d9d9e6;background:#eef2ff;font-weight:700;text-align:right;">Nosso Valor (pago na CIA) • ${escapeHtml(cur)}</td>
     </tr>
     ${sel.diftar ? row("Dif. tarifa", fmt(cob.diftar), fmt(pago.diftar)) : ""}
     ${sel.multa  ? row("Multa", fmt(cob.multa), fmt(pago.multa)) : ""}
@@ -3314,10 +3382,53 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
       for(const s of document.querySelectorAll(".rentCur")){ s.textContent = cur; }
     }
 
-    function updateAll(arg){
+    const AZUL_RULE_TEXT = "Em reemissões Azul, o serviço pago previamente será utilizado como crédito no recalculo de reemissão e é necessário a nova compra do mesmo.";
+const LATAM_GOL_RULE_TEXT = "Se reemitido através de um novo LOC, o localizador original deverá ser cancelado após a reemissão.";
+let __lastCiaForAzul = "";
+
+function normalizeCia(v){
+  return String(v || "").trim().toUpperCase();
+}
+function isAzulCia(v){
+  const c = normalizeCia(v);
+  return c === "AD" || c === "AZUL";
+}
+function syncCiaNacSelector(){
+  const sel = document.getElementById("ciaNacSelector");
+  const input = document.getElementById("cia");
+  const hint = document.getElementById("ciaHint");
+  if(!sel || !input) return;
+  const nacOn = (getActiveMode && getActiveMode() === "NAC");
+  sel.classList.toggle("hidden", !nacOn);
+  const val = normalizeCia(input.value);
+  const inList = (val === "" || val === "G3" || val === "LA" || val === "AD" || val === "AZUL");
+  input.style.display = (nacOn && inList) ? "none" : "";
+  if(hint) hint.style.display = nacOn ? "block" : "none";
+
+  for(const btn of sel.querySelectorAll(".airBtn")){
+    const b = normalizeCia(btn.dataset.cia);
+    const active = (val === b) || (val === "AZUL" && b === "AD");
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+  }
+}
+function isLatamOrGolCia(v){
+  const c = normalizeCia(v);
+  return c === "LA" || c === "LATAM" || c === "G3" || c === "GOL";
+}
+
+let __lastCiaForAutoRules = "";
+function maybeInjectAutoRuleFromCia(){
+  // DESATIVADO: não preencher automaticamente o campo "Regras / observações".
+  // As regras padrão por cia (AZUL / LATAM / GOL) aparecem somente no e-mail.
+}
+
+function updateAll(arg){
       // arg pode ser Event (listeners) ou um objeto {silent:true}. Não trate Event como silent.
       const silent = (arg === true) || (arg && arg.silent === true);
 
+      syncCiaNacSelector();
+      // regras automáticas por cia aparecem apenas no e-mail (não preencher textarea)
       toggleRentUI();
       setRentCurrencyLabels();
 
@@ -3325,6 +3436,11 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
       const _svcOn = document.getElementById("nac_services_on");
       const _svcWrap = document.getElementById("nac_services_wrap");
       if(_svcOn && _svcWrap){ _svcWrap.style.display = _svcOn.checked ? "block" : "none"; }
+
+      // NAC: Fólio (texto livre)
+      const _folOn = document.getElementById("nac_folio_on");
+      const _folWrap = document.getElementById("nac_folio_wrap");
+      if(_folOn && _folWrap){ _folWrap.style.display = _folOn.checked ? "block" : "none"; }
 
       const mode = getActiveMode();
       if(mode === "NAC"){
@@ -3435,6 +3551,7 @@ function clearAll(silent){
       document.getElementById("paxq_chd").value = "0";
       document.getElementById("paxq_inf").value = "0";
       document.getElementById("pax_json").value = "";
+      const _fol = document.getElementById("nac_folio_on"); if(_fol) _fol.checked = false;
       updateAll();
       renderPaxFields();
       if(!silent) showToast("Limpo!");
@@ -3477,6 +3594,17 @@ function clearAll(silent){
     // wire tabs
     document.getElementById("tabNac").addEventListener("click", ()=>switchTab("tabNac"));
     document.getElementById("tabInter").addEventListener("click", ()=>switchTab("tabInter"));
+    // NAC: seletor de cia (GOL/LATAM/AZUL)
+    for(const btn of document.querySelectorAll("#ciaNacSelector .airBtn")){
+      btn.addEventListener("click", ()=>{
+        const ciaEl = document.getElementById("cia");
+        if(ciaEl){ ciaEl.value = normalizeCia(btn.dataset.cia || ""); }
+        syncCiaNacSelector();
+        updateAll();
+      });
+    }
+    // estado inicial do seletor
+    syncCiaNacSelector();
 
     // buttons
     let lastEmailHtml = "";
@@ -3514,17 +3642,9 @@ function clearAll(silent){
       if(!ok) showToast("Não deu pra copiar automático. Copie pelo preview.");
     });
 // CRR
-    document.getElementById("btnCopiarRACode").addEventListener("click", async ()=>{
-      const code = (document.getElementById("raCode").value || buildCRRCode()).trim();
-      try{
-        await navigator.clipboard.writeText(code);
-        showToast("CRR copiado!");
-      }catch(e){
-        showToast("Não deu pra copiar. Copie do campo.");
-      }
-    });
+    // (botão "Copiar CRR" removido)
 
-    document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
+document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
       const code = (document.getElementById("raCode").value || "").trim();
       try{
         loadCRRCode(code);
