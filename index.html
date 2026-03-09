@@ -84,9 +84,13 @@
     :root[data-theme="light"] .tab,
     :root[data-theme="light"] .action,
     :root[data-theme="light"] .pill{
-      border:1px solid rgba(15,23,42,.14);
-      background: rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
       color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 13px;
     }
     :root[data-theme="light"] .hr{ background: rgba(15,23,42,.10); }
     :root[data-theme="light"] .muted{ color: var(--muted); }
@@ -305,16 +309,87 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 
   
 
-    .topRow{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-    .themeCtl{ display:flex; align-items:center; gap:8px; }
-    .themeCtl label{ font-size:12px; color: var(--muted); font-weight:800; }
-    .themeCtl select{
-      width:auto; min-width: 130px;
+    .topRow{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .themeCtl{ margin-left:auto; }
+    .themeCtl{
+      display:flex; align-items:center; gap:10px;
       padding: 8px 10px;
-      border-radius: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 8px 22px rgba(0,0,0,.18);
     }
-    
-    .grid3{ display:grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 10px; }
+    :root[data-theme="light"] .themeCtl{
+      background: rgba(15,23,42,.04);
+      border-color: rgba(15,23,42,.16);
+      box-shadow: 0 10px 22px rgba(2,6,23,.10);
+    }
+    .themeCtl label{
+      font-size:12px;
+      color: var(--muted);
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .themeIcon{
+      width:28px; height:28px;
+      display:inline-flex; align-items:center; justify-content:center;
+      border-radius: 999px;
+      background: rgba(0,0,0,.18);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: 14px;
+      line-height: 1;
+    }
+    :root[data-theme="light"] .themeIcon{
+      background: rgba(15,23,42,.06);
+      border-color: rgba(15,23,42,.16);
+    }
+    .themeCtl select{
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      color: var(--text);
+      font-weight: 900;
+      padding: 8px 34px 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      min-width: 140px;
+      outline: none;
+      position: relative;
+    }
+    :root[data-theme="light"] .themeCtl select{
+      background: rgba(255,255,255,.9);
+      border-color: rgba(15,23,42,.16);
+    }
+    .themeCtl select:focus{
+      box-shadow: 0 0 0 3px rgba(155,92,255,.30);
+      border-color: rgba(155,92,255,.55);
+    }
+    /* setinha */
+    .themeCtl{ position: relative; }
+    .themeCtl select{
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(255,255,255,.85) 50%),
+        linear-gradient(135deg, rgba(255,255,255,.85) 50%, transparent 50%),
+        linear-gradient(to right, transparent, transparent);
+      background-position:
+        calc(100% - 16px) calc(50% - 2px),
+        calc(100% - 11px) calc(50% - 2px),
+        calc(100% - 32px) 50%;
+      background-size:
+        6px 6px,
+        6px 6px,
+        1px 18px;
+      background-repeat: no-repeat;
+    }
+    :root[data-theme="light"] .themeCtl select{
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(15,23,42,.85) 50%),
+        linear-gradient(135deg, rgba(15,23,42,.85) 50%, transparent 50%),
+        linear-gradient(to right, transparent, transparent);
+    }
+.grid3{ display:grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 10px; }
     @media (max-width: 720px){ .grid3{ grid-template-columns: 1fr; } }
 
     :root[data-theme="light"] input::placeholder, :root[data-theme="light"] textarea::placeholder{ color:#64748b; opacity:1; }
@@ -487,6 +562,98 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 .airLogo{display:inline-flex;align-items:center;justify-content:center;height:30px;width:auto;max-width:86px;border-radius:10px;overflow:hidden;background:transparent}
 .airLogo img{display:block;height:30px;width:auto}
 .airCode{font-weight:900;font-size:12px;color:#111827;opacity:.8}
+
+
+
+/* --- Theme control: basic (no pill / no custom arrow) --- */
+.themeCtl{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+.themeCtl label{
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: var(--muted) !important;
+}
+.themeCtl select{
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  -moz-appearance: auto !important;
+
+  background-image: none !important;
+  background-position: initial !important;
+  background-size: initial !important;
+  background-repeat: initial !important;
+
+  padding: 6px 10px !important;
+  border-radius: 10px !important;
+  min-width: 110px !important;
+
+  border: 1px solid rgba(255,255,255,.18) !important;
+  background: rgba(255,255,255,.06) !important;
+  color: var(--text) !important;
+}
+.themeCtl select:focus{
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(155,92,255,.25) !important;
+  border-color: rgba(155,92,255,.55) !important;
+}
+:root[data-theme="light"] .themeCtl select{
+  border-color: rgba(15,23,42,.20) !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+/* --- end theme control override --- */
+
+
+/* Theme select dropdown options legibility (dark) */
+:root[data-theme="dark"] .themeCtl select option{
+  background: #0b1020;
+  color: #e9eefc;
+}
+:root[data-theme="light"] .themeCtl select option{
+  background: #ffffff;
+  color: #0f172a;
+}
+
+
+/* =========================
+   FIX: Botões Nacional/Internacional (tema claro)
+   - mais contraste para ver o selecionado
+   - estilo tipo "segmented control"
+   ========================= */
+:root[data-theme="light"] .card.calcCard .tabs{
+  background: rgba(124,58,237,.08);
+  border: 1px solid rgba(124,58,237,.18);
+  padding: 6px;
+  border-radius: 999px;
+  gap: 6px;
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab{
+  border: 1px solid transparent;
+  background: transparent;
+  color: #0f172a;
+  font-weight: 900;
+  padding: 10px 16px;
+  border-radius: 999px;
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab:hover{
+  background: rgba(124,58,237,.10);
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab[aria-selected="true"]{
+  background: #7c3aed;
+  color: #ffffff;
+  border-color: rgba(109,40,217,.65);
+  box-shadow: 0 10px 22px rgba(124,58,237,.22);
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(124,58,237,.22);
+}
+
 </style>
 </head>
 <body>
@@ -502,7 +669,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 
       <div class="themeCtl">
         <label for="themeSel">Tema</label>
-        <select id="themeSel">
+<select id="themeSel" aria-label="Tema">
           <option value="dark">Escuro</option>
           <option value="light">Claro</option>
         </select>
@@ -806,12 +973,12 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
             <div>
               <label>Forma de pagamento</label>
               <select id="nac_fp">
-                <option>Faturado</option>
-                <option>Link de pagamento</option>
+                <option value="Faturado" selected>Faturado ou Cartão de Crédito</option>
+                <option value="Link de pagamento">Link de pagamento</option>
               </select>
             </div>
             <div>
-              <label>Link de pagamento (se aplicável)</label>
+              <label>Link de pagamento (opcional)</label>
               <input id="nac_link" placeholder="Cole o link aqui (opcional)" />
             </div>
           </div>
@@ -935,12 +1102,12 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
             <div>
               <label>Forma de pagamento</label>
               <select id="inter_fp">
-                <option>Faturado</option>
-                <option>Link de pagamento</option>
+                <option value="Faturado" selected>Faturado ou Cartão de Crédito</option>
+                <option value="Link de pagamento">Link de pagamento</option>
               </select>
             </div>
             <div style="grid-column: 1 / -1;">
-              <label>Link de pagamento (se aplicável)</label>
+              <label>Link de pagamento (opcional)</label>
               <input id="inter_link" placeholder="Cole o link aqui (opcional)" />
             </div>
           </div>
@@ -949,6 +1116,7 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
 
           <div class="muted small"><b>Valores por tipo de pax (na moeda selecionada • RC sempre em USD)</b></div>
           <div class="hr"></div>
+
           
 
           <div class="row paxTypeRow" data-pax-type="ADT" id="interRow_ADT">
@@ -988,6 +1156,25 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
               <div class="v" id="inter_total_brl">R$ 0,00</div>
             </div>
           </div>
+
+          
+          <div class="hr"></div>
+
+          <!-- INTER: Endosso (texto livre) -->
+          <div class="row" style="margin-top:10px">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">
+              <label style="display:flex;align-items:center;gap:10px;cursor:pointer">
+                <input type="checkbox" id="inter_endosso_on" />
+                <span><b>Endosso</b></span>
+              </label>
+              <div id="inter_endosso_wrap" style="display:none; flex:1; min-width:260px; max-width:720px">
+                <label>Endosso (texto livre)</label>
+                <textarea id="inter_endosso_text" placeholder="Digite o endosso aqui (opcional)" style="min-height:42px"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
 
           <div id="rentAnchorInter"></div>
 
@@ -1062,7 +1249,8 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--sys">CRR</span> <b>4) CRR (código de registro de reemissão)</b> — copie/cole este código na OP (RF) ou no Teams/e-mail. Depois, cole aqui e clique em “Carregar”.</div>
         <textarea id="raCode" class="codebox" style="min-height:96px" spellcheck="false" aria-label="CRR para reabrir cálculo"></textarea>
         <div class="btns" style="margin-top:10px">
-                    <button class="action" id="btnCarregarRACode">Carregar CRR</button>
+                    <button class="action good" id="btnGerarCRR5">Gerar CRR curto (CRR5)</button>
+          <button class="action" id="btnCarregarRACode">Carregar CRR</button>
 </div>
         <div class="muted small" style="margin-top:8px">Se você colar um texto maior (ex.: a observação inteira do RF), o sistema tenta achar automaticamente o trecho <b>CRR2-...</b> (ou <b>CRR1/RA1</b> antigos).</div>
 
@@ -2323,6 +2511,88 @@ function buildCRRCode(){
     }
 
 
+// ===== CRR5 (curto via Cloudflare Worker + Upstash) =====
+// Mantém o CRR4 local como fallback/offline.
+const CRR5_API = "https://crr-api.rexturfacilita.workers.dev/".replace(/\/+$/,"");
+
+function extractCRR5(text){
+  const compact = String(text || "").replace(/\s+/g,"");
+  const mm = compact.match(/CRR5-[A-Za-z0-9]{6,64}/i);
+  return mm ? mm[0].toUpperCase() : null;
+}
+
+async function saveCRR5FromCRR4(crr4){
+  const r = await fetch(`${CRR5_API}/save`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ payload: String(crr4 || "") }),
+  });
+  if(!r.ok) throw new Error("Falha ao salvar CRR curto");
+  const data = await r.json().catch(()=>null);
+  if(!data || !data.id) throw new Error("Resposta inválida do servidor");
+  return `CRR5-${data.id}`;
+}
+
+async function loadCRR5ToCRR4(crr5){
+  const id = String(crr5 || "").trim().replace(/^CRR5-/i,"");
+  const r = await fetch(`${CRR5_API}/load?id=${encodeURIComponent(id)}`);
+  if(!r.ok) throw new Error("CRR curto não encontrado (ou expirou)");
+  const data = await r.json().catch(()=>null);
+  if(!data || typeof data.payload !== "string") throw new Error("Resposta inválida do servidor");
+  return data.payload;
+}
+
+const __CRR5_CACHE = new Map(); // key: CRR4 -> CRR5
+
+function getCRRCodeForEmail(){
+  const ta = document.getElementById("raCode");
+  const c5 = extractCRR5(ta ? ta.value : "");
+  return c5 || buildCRRCode();
+}
+
+function invalidateCRR5OnEdit(){
+  const ta = document.getElementById("raCode");
+  if(!ta) return;
+  // se estava "travado" em CRR5, destrava para obrigar gerar um novo após qualquer ajuste
+  if(ta.dataset && ta.dataset.manual === "1" && extractCRR5(ta.value)){
+    ta.dataset.manual = "0";
+    ta.dataset.sig = "";
+  }
+}
+
+async function ensureCRR5Current(){
+  const crr4 = buildCRRCode();
+  const ta = document.getElementById("raCode");
+  const existing5 = extractCRR5(ta ? ta.value : "");
+
+  // Reaproveita CRR5 se ele foi gerado para este mesmo CRR4 (assinatura)
+  if(existing5 && ta && ta.dataset && ta.dataset.sig === crr4){
+    __CRR5_CACHE.set(crr4, existing5);
+    return existing5;
+  }
+
+  const cached = __CRR5_CACHE.get(crr4);
+  if(cached){
+    if(ta){
+      ta.dataset.manual = "1";
+      ta.dataset.sig = crr4;
+      ta.value = cached;
+    }
+    return cached;
+  }
+
+  const crr5 = await saveCRR5FromCRR4(crr4);
+  __CRR5_CACHE.set(crr4, crr5);
+  if(ta){
+    ta.dataset.manual = "1";
+    ta.dataset.sig = crr4;
+    ta.value = crr5;
+  }
+  return crr5;
+}
+
+
+
     function loadCRRCode(code){
       // aceita CRR colado puro, dentro de texto maior (OBS RF / e-mail), com quebras de linha, etc.
       let full = String(code || "");
@@ -2563,11 +2833,15 @@ function buildCRRCode(){
     function buildEmailHtmlNac(){
       const common = getCommon();
       const calc = calcNac();
-      const crr = buildCRRCode();
+      const crr = getCRRCodeForEmail();
       const crrEmailHtml = escapeHtml(crr) + (common.rentab ? "<br/>@#" : "");
       const fp = document.getElementById("nac_fp").value;
       const link = document.getElementById("nac_link").value.trim();
       const voos = document.getElementById("nac_voos").value.trim();
+      const folioOn = !!(document.getElementById("nac_folio_on") && document.getElementById("nac_folio_on").checked);
+      const folio = (document.getElementById("nac_folio_text") ? document.getElementById("nac_folio_text").value.trim() : "");
+      const folioRow = (folioOn && folio) ? `<tr><td style="background-color:#efe9f8; padding:6px 8px; border:1px solid #e6def3;"><b>Fólio</b></td><td style="background-color:#ffffff; padding:6px 8px; border:1px solid #e6def3;">${escapeHtml(folio)}</td></tr>` : "";
+
       const regrasUserRaw = document.getElementById("nac_regras").value.trim();
       const isAzul = /(^|[\s,\/])(?:AD|AZUL)($|[\s,\/])/i.test(String(common.cia||"").trim());
       const isLatamGol = /(^|[\s,\/])(?:LA|LATAM|G3|GOL)($|[\s,\/])/i.test(String(common.cia||"").trim());
@@ -2612,9 +2886,12 @@ const servicesRow = (calc.servicesBRL && calc.servicesBRL > 0)
         </tr>
       `);
 
-      const linkLine = (fp === "Link de pagamento" && link)
-        ? `<p style="margin:8px 0 0">Para pagamento via cartão, preencha os dados no link e nos responda com a quantidade de parcelas caso seja parcelado: <b><a href="${escapeHtml((/^https?:\/\//i.test(link)?link:`https://${link}`))}" target="_blank" rel="noopener">${escapeHtml(link)}</a></b></p>`
-        : `<p style="margin:8px 0 0">Forma de pagamento: <b>${escapeHtml(fp)}</b></p>`;
+      const payLabel = "Faturado ou Cartão de Crédito";
+      const linkHref = link ? ( /^https?:\/\//i.test(link) ? link : `https://${link}` ) : "";
+      const linkLine = `
+        <p style="margin:8px 0 0">Forma de pagamento: <b>${payLabel}</b></p>
+        ${link ? `<p style="margin:6px 0 0">Link de pagamento: <b><a href="${escapeHtml(linkHref)}" target="_blank" rel="noopener">${escapeHtml(link)}</a></b></p>` : ""}
+      `.trim();
 
       const azulRuleLi = isAzul ? `<li>${escapeHtml(AZUL_RULE_TEXT)}</li>` : "";
       const latamGolRuleLi = (isLatamGol && !isAzul) ? `<li>${escapeHtml(LATAM_GOL_RULE_TEXT)}</li>` : "";
@@ -2642,7 +2919,8 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
             <tr><td><b>Passageiro(s) / Bilhete(s)</b></td><td>${buildPaxTicketPairsHtml(common)}</td></tr>${common.oac ? `<tr><td><b>OAC</b></td><td>${escapeHtml(common.oac)}</td></tr>` : ``}
             <tr><td><b>Família Tarifária</b></td><td>${escapeHtml(common.familia)}</td></tr>
             <tr><td><b>Bagagem</b></td><td>${escapeHtml(common.bag)}</td></tr>
-            <tr><td><b>Permite parcelamento?</b></td><td>${escapeHtml(common.parcelamento)}</td></tr>
+<tr><td><b>Permite parcelamento?</b></td><td>${escapeHtml(common.parcelamento)}</td></tr>
+          ${folioRow}
           </table>
 
           <p style="margin:12px 0 6px"><b>Descritivo de valores (por pax)</b></p>
@@ -2670,7 +2948,8 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
           <p style="margin:6px 0 0"><i>*Após o preenchimento, responda o e-mail para darmos continuidade ao processo</i></p>
           <p style="margin:6px 0 0">Em respeito a LGPD, não é permitido trafegar informações que envolvam dados de cartão de crédito.</p>
 
-          <p style="margin:12px 0 0"><b>✈️ Voos simulados:</b><br/>${voos ? brToHtml(voos) : `<span style="color:#999">-</span>`}</p>
+          <div style="margin:22px 0 0; padding:10px 12px; background:#6d28d9; color:#ffffff; font-weight:900; border-radius:12px; letter-spacing:.3px;">VOOS SIMULADOS</div>
+          <div style="margin:14px 0 22px; padding:14px 14px; border:1px solid #d9c8f2; border-radius:12px; background:#f7f3ff; font-family:Consolas, \"Courier New\", monospace; font-size:14px; line-height:1.55;">${voos ? brToHtml(voos) : `<span style=\"color:#999\">-</span>`}</div>
 
           <p style="margin:12px 0 0"><b>📌 Regras:</b></p>
           ${regrasPadrao}
@@ -2683,7 +2962,7 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
     function buildEmailHtmlInter(){
       const common = getCommon();
       const calc = calcInter();
-      const crr = buildCRRCode();
+      const crr = getCRRCodeForEmail();
       const crrEmailHtml = escapeHtml(crr) + (common.rentab ? "<br/>@#" : "");
       const incentivo = document.getElementById("inter_incentivo").value;
       const tipo = document.getElementById("inter_tipo").value;
@@ -2693,6 +2972,11 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
       const original = document.getElementById("inter_original").value.trim();
       const voos = document.getElementById("inter_voos").value.trim();
       const interno = document.getElementById("inter_interno").value.trim();
+
+      const endossoOn = !!(document.getElementById("inter_endosso_on") && document.getElementById("inter_endosso_on").checked);
+      const endosso = (document.getElementById("inter_endosso_text") ? document.getElementById("inter_endosso_text").value.trim() : "");
+      const endossoRow = (endossoOn && endosso) ? `<tr><td style="background-color:#efe9f8; padding:6px 8px; border:1px solid #e6def3;"><b>Endosso</b></td><td style="background-color:#ffffff; padding:6px 8px; border:1px solid #e6def3;">${escapeHtml(endosso)}</td></tr>` : "";
+
       const isAzul = /(^|[\s,\/])(?:AD|AZUL)($|[\s,\/])/i.test(String(common.cia||"").trim());
       const azulMsg = "";
 
@@ -2719,9 +3003,12 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
         </tr>
       `);
 
-      const linkLine = (fp === "Link de pagamento" && link)
-        ? `<p style="margin:8px 0 0">Para pagamento via cartão, preencha os dados no link e nos responda com a quantidade de parcelas caso seja parcelado: <b><a href="${escapeHtml((/^https?:\/\//i.test(link)?link:`https://${link}`))}" target="_blank" rel="noopener">${escapeHtml(link)}</a></b></p>`
-        : `<p style="margin:8px 0 0">Forma de pagamento: <b>${escapeHtml(fp)}</b></p>`;
+      const payLabel = "Faturado ou Cartão de Crédito";
+      const linkHref = link ? ( /^https?:\/\//i.test(link) ? link : `https://${link}` ) : "";
+      const linkLine = `
+        <p style="margin:8px 0 0">Forma de pagamento: <b>${payLabel}</b></p>
+        ${link ? `<p style="margin:6px 0 0">Link de pagamento: <b><a href="${escapeHtml(linkHref)}" target="_blank" rel="noopener">${escapeHtml(link)}</a></b></p>` : ""}
+      `.trim();
 
       const fxLine = calc.fx > 0
         ? `<p style="margin:6px 0 0"><b>Câmbio informado:</b> 1 ${escapeHtml(calc.cur)} = ${calc.fx.toFixed(4).replace(".",",")} BRL • <b>Total (BRL):</b> ${fmtBRL(calc.totalBRL)}</p>`
@@ -2745,6 +3032,7 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
             <tr><td><b>Permite parcelamento?</b></td><td>${escapeHtml(common.parcelamento)}</td></tr>
             <tr><td><b>Moeda</b></td><td>${escapeHtml(calc.cur)}</td></tr>
             <tr><td><b>Recuperação de incentivo?</b></td><td>${escapeHtml(incentivo)}</td></tr>
+          ${endossoRow}
           </table>
 
           <p style="margin:12px 0 6px"><b>Descritivo de valores (por pax) — ${escapeHtml(calc.cur)} <span style="font-weight:700; color:#475569">(RC em USD)</span></b></p>
@@ -2773,7 +3061,8 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
           <p style="margin:6px 0 0"><i>*Após o preenchimento, responda o e-mail para darmos continuidade ao processo</i></p>
           <p style="margin:6px 0 0">Em respeito a LGPD, não é permitido trafegar informações que envolvam dados de cartão de crédito.</p>
 
-          <p style="margin:12px 0 0"><b>✈︎ VOOS SIMULADOS:</b><br/>${voos ? brToHtml(voos) : `<span style="color:#999">-</span>`}</p>
+          <div style="margin:22px 0 0; padding:10px 12px; background:#6d28d9; color:#ffffff; font-weight:900; border-radius:12px; letter-spacing:.3px;">VOOS SIMULADOS</div>
+          <div style="margin:14px 0 22px; padding:14px 14px; border:1px solid #d9c8f2; border-radius:12px; background:#f7f3ff; font-family:Consolas, \"Courier New\", monospace; font-size:14px; line-height:1.55;">${voos ? brToHtml(voos) : `<span style=\"color:#999\">-</span>`}</div>
           <p style="margin:12px 0 0"><b>📌 CÁLCULO - USO INTERNO:</b><br/>${interno ? brToHtml(interno) : `<span style="color:#999">-</span>`}</p>
           <p style="margin:12px 0 0"><b>✈ BILHETE ORIGINAL:</b><br/>${original ? brToHtml(original) : `<span style="color:#999">-</span>`}</p>
           <p style="margin:6px 0 0; font-size:9px; color:#999">${crrEmailHtml}</p>
@@ -2801,6 +3090,11 @@ function rfHeader(mode){
 
       const fp = document.getElementById("nac_fp").value;
       const pay = (fp === "Link de pagamento") ? "Link de pagamento (enviado à agência)" : "Faturado";
+
+      const folioOn = !!(document.getElementById("nac_folio_on") && document.getElementById("nac_folio_on").checked);
+      const folio = (document.getElementById("nac_folio_text") ? document.getElementById("nac_folio_text").value.trim() : "");
+      const folioRow = (folioOn && folio) ? `<tr><td style="padding:6px; background-color:#efe9f8;"><strong>Fólio:</strong></td><td style="padding:6px;">${escAttr(folio)}</td></tr>` : "";
+
 
       let valueRows = "";
       for(const r of calc.rows){
@@ -2956,6 +3250,7 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
           ${c.oac ? `<tr><td style="padding:6px;"><strong>OAC:</strong></td><td style="padding:6px;">${escAttr(c.oac)}</td></tr>` : ""}
           <tr><td style="padding:6px;"><strong>Família Tarifária:</strong></td><td style="padding:6px;">${escAttr(c.familia)}</td></tr>
           <tr><td style="padding:6px;"><strong>Bagagem:</strong></td><td style="padding:6px;">${escAttr(c.bag)}</td></tr>
+${folioRow}
 <tr><th style="background-color:#a99ac5; color:white; text-align:left; padding:6px;">Descritivo</th><th style="background-color:#a99ac5; color:white; text-align:left; padding:6px;">Valores</th></tr>
           ${valueRows}
           ${rentBlock}
@@ -2972,6 +3267,11 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
 
       const internoRF = (document.getElementById("inter_interno") ? document.getElementById("inter_interno").value.trim() : "");
       const internoHtml = internoRF ? escAttr(maskRFText(internoRF)).split("\n").join("<br>") : "";
+
+      const endossoOn = !!(document.getElementById("inter_endosso_on") && document.getElementById("inter_endosso_on").checked);
+      const endossoText = (document.getElementById("inter_endosso_text") ? document.getElementById("inter_endosso_text").value.trim() : "");
+      const endossoRow = (endossoOn && endossoText) ? `<tr><td style="padding:6px; background-color:#efe9f8;"><strong>Endosso:</strong></td><td style="padding:6px;">${escAttr(endossoText)}</td></tr>` : "";
+
 
       const fp = document.getElementById("inter_fp").value;
       const pay = (fp === "Link de pagamento") ? "Link de pagamento (enviado à agência)" : "Faturado";
@@ -3133,6 +3433,7 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
           ${c.oac ? `<tr><td style="padding:6px;"><strong>OAC:</strong></td><td style="padding:6px;">${escAttr(c.oac)}</td></tr>` : ""}
           <tr><td style="padding:6px;"><strong>Família Tarifária:</strong></td><td style="padding:6px;">${escAttr(c.familia)}</td></tr>
           <tr><td style="padding:6px;"><strong>Bagagem:</strong></td><td style="padding:6px;">${escAttr(c.bag)}</td></tr>
+${endossoRow}
 <tr><td style="padding:6px;"><strong>Moeda:</strong></td><td style="padding:6px;">${escAttr(calc.cur)} • <strong>Câmbio:</strong> ${escAttr(fxText)}</td></tr>
           ${(calc.cur !== "USD") ? `<tr><td style="padding:6px;"><strong>Câmbio USD→BRL (RC):</strong></td><td style="padding:6px;">${escAttr(rcFxText)}</td></tr>` : ""}
           <tr><td style="padding:6px;"><strong>Incentivo:</strong></td><td style="padding:6px;">${escAttr(incentivo)} • <strong>Tipo cálculo:</strong> ${escAttr(tipo)}</td></tr>
@@ -3374,6 +3675,7 @@ ${c.novo_loc ? `<tr><td style="padding:6px;"><strong>Novo LOC:</strong></td><td 
       placeRentPanel();
       updateAll({silent:true});
       renderPaxFields();
+      try{ localStorage.setItem("ra_calc_last_mode", nacOn ? "NAC" : "INTER"); }catch(e){}
     }
 
     function rentCurrencyCode(){ return (getActiveMode()==="INTER") ? getInterCurrency() : "BRL"; }
@@ -3441,6 +3743,11 @@ function updateAll(arg){
       const _folOn = document.getElementById("nac_folio_on");
       const _folWrap = document.getElementById("nac_folio_wrap");
       if(_folOn && _folWrap){ _folWrap.style.display = _folOn.checked ? "block" : "none"; }
+
+      // INTER: Endosso (texto livre)
+      const _endOn = document.getElementById("inter_endosso_on");
+      const _endWrap = document.getElementById("inter_endosso_wrap");
+      if(_endOn && _endWrap){ _endWrap.style.display = _endOn.checked ? "block" : "none"; }
 
       const mode = getActiveMode();
       if(mode === "NAC"){
@@ -3547,11 +3854,15 @@ function clearAll(silent){
       document.getElementById("inter_cur").value = "USD";
       document.getElementById("inter_cur_other").value = "";
       document.getElementById("preview").innerHTML = "";
-      document.getElementById("paxq_adt").value = "1";
+            const raTA0 = document.getElementById("raCode");
+      if(raTA0){ raTA0.dataset.manual = "0"; raTA0.dataset.sig = ""; }
+document.getElementById("paxq_adt").value = "1";
       document.getElementById("paxq_chd").value = "0";
       document.getElementById("paxq_inf").value = "0";
       document.getElementById("pax_json").value = "";
       const _fol = document.getElementById("nac_folio_on"); if(_fol) _fol.checked = false;
+      const _end = document.getElementById("inter_endosso_on"); if(_end) _end.checked = false;
+      const _endT = document.getElementById("inter_endosso_text"); if(_endT) _endT.value = "";
       updateAll();
       renderPaxFields();
       if(!silent) showToast("Limpo!");
@@ -3594,6 +3905,13 @@ function clearAll(silent){
     // wire tabs
     document.getElementById("tabNac").addEventListener("click", ()=>switchTab("tabNac"));
     document.getElementById("tabInter").addEventListener("click", ()=>switchTab("tabInter"));
+    // restaura última aba usada (NAC / INTER)
+    try{
+      const last = localStorage.getItem("ra_calc_last_mode");
+      if(last === "INTER") switchTab("tabInter");
+      else if(last === "NAC") switchTab("tabNac");
+    }catch(e){}
+
     // NAC: seletor de cia (GOL/LATAM/AZUL)
     for(const btn of document.querySelectorAll("#ciaNacSelector .airBtn")){
       btn.addEventListener("click", ()=>{
@@ -3608,10 +3926,16 @@ function clearAll(silent){
 
     // buttons
     let lastEmailHtml = "";
-    document.getElementById("btnGerar").addEventListener("click", ()=>{ lastEmailHtml = generateEmail(); });
+    document.getElementById("btnGerar").addEventListener("click", async ()=>{
+      try{ await ensureCRR5Current(); }
+      catch(e){ showToast((e && e.message) ? e.message : "Falha ao gerar CRR5."); return; }
+      lastEmailHtml = generateEmail();
+    });
 
     document.getElementById("btnCopiarHtml").addEventListener("click", async ()=>{
-      if(!lastEmailHtml) lastEmailHtml = generateEmail();
+      try{ await ensureCRR5Current(); }
+      catch(e){ showToast((e && e.message) ? e.message : "Falha ao gerar CRR5."); return; }
+      lastEmailHtml = generateEmail();
       if(!lastEmailHtml){ return; }
       const ok = await copyHtmlToClipboard(lastEmailHtml);
       if(!ok) showToast("Não deu pra copiar automático. Copie pelo preview.");
@@ -3644,13 +3968,31 @@ function clearAll(silent){
 // CRR
     // (botão "Copiar CRR" removido)
 
-document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
+document.getElementById("btnGerarCRR5") && document.getElementById("btnGerarCRR5").addEventListener("click", async ()=>{
+      try{
+        const crr5 = await ensureCRR5Current();
+        try{ await navigator.clipboard.writeText(crr5); showToast("CRR5 copiado!"); }
+        catch(e){ showToast("CRR5 gerado. Copie do campo."); }
+      }catch(e){ showToast((e && e.message) ? e.message : "Falha ao gerar CRR5."); }
+    });
+
+document.getElementById("btnCarregarRACode").addEventListener("click", async ()=>{
       const code = (document.getElementById("raCode").value || "").trim();
       try{
-        loadCRRCode(code);
-        const rc = document.getElementById("raCode");
-        if(rc){ rc.dataset.manual = "0"; rc.value = buildCRRCode(); }
-        // refresh preview as well
+        const c5 = extractCRR5(code);
+        if(c5){
+          const crr4 = await loadCRR5ToCRR4(c5);
+          loadCRRCode(crr4);
+          // mantém o CRR5 visível e marca assinatura para reuso
+          const rc = document.getElementById("raCode");
+          const sig = buildCRRCode();
+          __CRR5_CACHE.set(sig, c5);
+          if(rc){ rc.dataset.manual = "1"; rc.dataset.sig = sig; rc.value = c5; }
+        }else{
+          loadCRRCode(code);
+          const rc = document.getElementById("raCode");
+          if(rc){ rc.dataset.manual = "0"; rc.dataset.sig = ""; rc.value = buildCRRCode(); }
+        }
         lastEmailHtml = generateEmail();
       }catch(e){
         showToast((e && e.message) ? e.message : "Código inválido.");
@@ -3670,8 +4012,8 @@ document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
 // reactive calc
     for(const el of document.querySelectorAll("input, select, textarea")){
       if(el.id === "obsCode" || el.id === "raCode") continue;
-      el.addEventListener("input", updateAll);
-      el.addEventListener("change", updateAll);
+      el.addEventListener("input", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
+      el.addEventListener("change", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
     }
 
     // uppercase automático em campos-chave
@@ -3703,8 +4045,8 @@ document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
     for(const id of ["rent_tipo_multa","rent_tipo_diftar","rent_tipo_diftax","rent_pago_cia","rent_cobrar_ag"]){
       const el = document.getElementById(id);
       if(!el) continue;
-      el.addEventListener("input", updateAll);
-      el.addEventListener("change", updateAll);
+      el.addEventListener("input", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
+      el.addEventListener("change", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
     }
 
     updateAll();
@@ -3746,14 +4088,24 @@ document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
     (function initTheme(){
       const key = "ra_calc_theme";
       const sel = document.getElementById("themeSel");
+      const icon = document.getElementById("themeIcon");
+
+      const apply = (v)=>{
+        const theme = (v === "light") ? "light" : "dark";
+        document.documentElement.dataset.theme = theme;
+        localStorage.setItem(key, theme);
+        if(sel) sel.value = theme;
+        if(icon) icon.textContent = (theme === "light") ? "☀️" : "🌙";
+      };
+
+      // inicia com preferencia salva
       const saved = localStorage.getItem(key) || "dark";
-      document.documentElement.dataset.theme = saved;
-      if(sel){ sel.value = saved; sel.addEventListener("change", () => {
-        const v = sel.value || "dark";
-        document.documentElement.dataset.theme = v;
-        localStorage.setItem(key, v);
-      });}
+      apply(saved);
+
+      if(sel){
+        sel.addEventListener("change", () => apply(sel.value || "dark"));
+      }
     })();
-    </script>
+</script>
 </body>
 </html>
