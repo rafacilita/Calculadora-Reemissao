@@ -619,6 +619,41 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
   color: #0f172a;
 }
 
+
+/* =========================
+   FIX: Botões Nacional/Internacional (tema claro)
+   - mais contraste para ver o selecionado
+   - estilo tipo "segmented control"
+   ========================= */
+:root[data-theme="light"] .card.calcCard .tabs{
+  background: rgba(124,58,237,.08);
+  border: 1px solid rgba(124,58,237,.18);
+  padding: 6px;
+  border-radius: 999px;
+  gap: 6px;
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab{
+  border: 1px solid transparent;
+  background: transparent;
+  color: #0f172a;
+  font-weight: 900;
+  padding: 10px 16px;
+  border-radius: 999px;
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab:hover{
+  background: rgba(124,58,237,.10);
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab[aria-selected="true"]{
+  background: #7c3aed;
+  color: #ffffff;
+  border-color: rgba(109,40,217,.65);
+  box-shadow: 0 10px 22px rgba(124,58,237,.22);
+}
+:root[data-theme="light"] .card.calcCard .tabs .tab:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(124,58,237,.22);
+}
+
 </style>
 </head>
 <body>
@@ -1214,7 +1249,8 @@ h1{ margin:0 0 6px; font-size: 20px; font-weight: 800; letter-spacing:.2px; }
         <div class="muted small outTitle" style="margin-bottom:6px"><span class="tag tag--sys">CRR</span> <b>4) CRR (código de registro de reemissão)</b> — copie/cole este código na OP (RF) ou no Teams/e-mail. Depois, cole aqui e clique em “Carregar”.</div>
         <textarea id="raCode" class="codebox" style="min-height:96px" spellcheck="false" aria-label="CRR para reabrir cálculo"></textarea>
         <div class="btns" style="margin-top:10px">
-                    <button class="action" id="btnCarregarRACode">Carregar CRR</button>
+                    <button class="action good" id="btnGerarCRR5">Gerar CRR curto (CRR5)</button>
+          <button class="action" id="btnCarregarRACode">Carregar CRR</button>
 </div>
         <div class="muted small" style="margin-top:8px">Se você colar um texto maior (ex.: a observação inteira do RF), o sistema tenta achar automaticamente o trecho <b>CRR2-...</b> (ou <b>CRR1/RA1</b> antigos).</div>
 
@@ -2475,6 +2511,89 @@ function buildCRRCode(){
     }
 
 
+// ===== CRR5 (curto via Cloudflare Worker + Upstash) =====
+// Mantém o CRR4 local como fallback/offline.
+const CRR5_API = "https://crr-api.rexturfacilita.workers.dev/".replace(/\/+$/,"");
+
+function extractCRR5(text){
+  const compact = String(text || "").replace(/\s+/g,"");
+  const mm = compact.match(/CRR5-([A-Za-z0-9]{6,64})/i);
+  if(!mm) return null;
+  return `CRR5-${mm[1].toLowerCase()}`;
+}
+
+async function saveCRR5FromCRR4(crr4){
+  const r = await fetch(`${CRR5_API}/save`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ payload: String(crr4 || "") }),
+  });
+  if(!r.ok) throw new Error("Falha ao salvar CRR curto");
+  const data = await r.json().catch(()=>null);
+  if(!data || !data.id) throw new Error("Resposta inválida do servidor");
+  return `CRR5-${String(data.id).toLowerCase()}`;
+}
+
+async function loadCRR5ToCRR4(crr5){
+  const id = String(crr5 || "").trim().replace(/^CRR5-/i,"").toLowerCase();
+  const r = await fetch(`${CRR5_API}/load?id=${encodeURIComponent(id)}`);
+  if(!r.ok) throw new Error("CRR curto não encontrado (ou expirou)");
+  const data = await r.json().catch(()=>null);
+  if(!data || typeof data.payload !== "string") throw new Error("Resposta inválida do servidor");
+  return data.payload;
+}
+
+const __CRR5_CACHE = new Map(); // key: CRR4 -> CRR5
+
+function getCRRCodeForEmail(){
+  const ta = document.getElementById("raCode");
+  const c5 = extractCRR5(ta ? ta.value : "");
+  return c5 || buildCRRCode();
+}
+
+function invalidateCRR5OnEdit(){
+  const ta = document.getElementById("raCode");
+  if(!ta) return;
+  // se estava "travado" em CRR5, destrava para obrigar gerar um novo após qualquer ajuste
+  if(ta.dataset && ta.dataset.manual === "1" && extractCRR5(ta.value)){
+    ta.dataset.manual = "0";
+    ta.dataset.sig = "";
+  }
+}
+
+async function ensureCRR5Current(){
+  const crr4 = buildCRRCode();
+  const ta = document.getElementById("raCode");
+  const existing5 = extractCRR5(ta ? ta.value : "");
+
+  // Reaproveita CRR5 se ele foi gerado para este mesmo CRR4 (assinatura)
+  if(existing5 && ta && ta.dataset && ta.dataset.sig === crr4){
+    __CRR5_CACHE.set(crr4, existing5);
+    return existing5;
+  }
+
+  const cached = __CRR5_CACHE.get(crr4);
+  if(cached){
+    if(ta){
+      ta.dataset.manual = "1";
+      ta.dataset.sig = crr4;
+      ta.value = cached;
+    }
+    return cached;
+  }
+
+  const crr5 = await saveCRR5FromCRR4(crr4);
+  __CRR5_CACHE.set(crr4, crr5);
+  if(ta){
+    ta.dataset.manual = "1";
+    ta.dataset.sig = crr4;
+    ta.value = crr5;
+  }
+  return crr5;
+}
+
+
+
     function loadCRRCode(code){
       // aceita CRR colado puro, dentro de texto maior (OBS RF / e-mail), com quebras de linha, etc.
       let full = String(code || "");
@@ -2715,7 +2834,7 @@ function buildCRRCode(){
     function buildEmailHtmlNac(){
       const common = getCommon();
       const calc = calcNac();
-      const crr = buildCRRCode();
+      const crr = getCRRCodeForEmail();
       const crrEmailHtml = escapeHtml(crr) + (common.rentab ? "<br/>@#" : "");
       const fp = document.getElementById("nac_fp").value;
       const link = document.getElementById("nac_link").value.trim();
@@ -2844,7 +2963,7 @@ const regrasExtra = regrasUser ? `<p style="margin:8px 0 0"><b>Observações:</b
     function buildEmailHtmlInter(){
       const common = getCommon();
       const calc = calcInter();
-      const crr = buildCRRCode();
+      const crr = getCRRCodeForEmail();
       const crrEmailHtml = escapeHtml(crr) + (common.rentab ? "<br/>@#" : "");
       const incentivo = document.getElementById("inter_incentivo").value;
       const tipo = document.getElementById("inter_tipo").value;
@@ -3736,7 +3855,9 @@ function clearAll(silent){
       document.getElementById("inter_cur").value = "USD";
       document.getElementById("inter_cur_other").value = "";
       document.getElementById("preview").innerHTML = "";
-      document.getElementById("paxq_adt").value = "1";
+            const raTA0 = document.getElementById("raCode");
+      if(raTA0){ raTA0.dataset.manual = "0"; raTA0.dataset.sig = ""; }
+document.getElementById("paxq_adt").value = "1";
       document.getElementById("paxq_chd").value = "0";
       document.getElementById("paxq_inf").value = "0";
       document.getElementById("pax_json").value = "";
@@ -3806,10 +3927,16 @@ function clearAll(silent){
 
     // buttons
     let lastEmailHtml = "";
-    document.getElementById("btnGerar").addEventListener("click", ()=>{ lastEmailHtml = generateEmail(); });
+    document.getElementById("btnGerar").addEventListener("click", async ()=>{
+      try{ await ensureCRR5Current(); }
+      catch(e){ showToast((e && e.message) ? e.message : "Falha ao gerar CRR5."); return; }
+      lastEmailHtml = generateEmail();
+    });
 
     document.getElementById("btnCopiarHtml").addEventListener("click", async ()=>{
-      if(!lastEmailHtml) lastEmailHtml = generateEmail();
+      try{ await ensureCRR5Current(); }
+      catch(e){ showToast((e && e.message) ? e.message : "Falha ao gerar CRR5."); return; }
+      lastEmailHtml = generateEmail();
       if(!lastEmailHtml){ return; }
       const ok = await copyHtmlToClipboard(lastEmailHtml);
       if(!ok) showToast("Não deu pra copiar automático. Copie pelo preview.");
@@ -3842,13 +3969,31 @@ function clearAll(silent){
 // CRR
     // (botão "Copiar CRR" removido)
 
-document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
+document.getElementById("btnGerarCRR5") && document.getElementById("btnGerarCRR5").addEventListener("click", async ()=>{
+      try{
+        const crr5 = await ensureCRR5Current();
+        try{ await navigator.clipboard.writeText(crr5); showToast("CRR5 copiado!"); }
+        catch(e){ showToast("CRR5 gerado. Copie do campo."); }
+      }catch(e){ showToast((e && e.message) ? e.message : "Falha ao gerar CRR5."); }
+    });
+
+document.getElementById("btnCarregarRACode").addEventListener("click", async ()=>{
       const code = (document.getElementById("raCode").value || "").trim();
       try{
-        loadCRRCode(code);
-        const rc = document.getElementById("raCode");
-        if(rc){ rc.dataset.manual = "0"; rc.value = buildCRRCode(); }
-        // refresh preview as well
+        const c5 = extractCRR5(code);
+        if(c5){
+          const crr4 = await loadCRR5ToCRR4(c5);
+          loadCRRCode(crr4);
+          // mantém o CRR5 visível e marca assinatura para reuso
+          const rc = document.getElementById("raCode");
+          const sig = buildCRRCode();
+          __CRR5_CACHE.set(sig, c5);
+          if(rc){ rc.dataset.manual = "1"; rc.dataset.sig = sig; rc.value = c5; }
+        }else{
+          loadCRRCode(code);
+          const rc = document.getElementById("raCode");
+          if(rc){ rc.dataset.manual = "0"; rc.dataset.sig = ""; rc.value = buildCRRCode(); }
+        }
         lastEmailHtml = generateEmail();
       }catch(e){
         showToast((e && e.message) ? e.message : "Código inválido.");
@@ -3868,8 +4013,8 @@ document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
 // reactive calc
     for(const el of document.querySelectorAll("input, select, textarea")){
       if(el.id === "obsCode" || el.id === "raCode") continue;
-      el.addEventListener("input", updateAll);
-      el.addEventListener("change", updateAll);
+      el.addEventListener("input", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
+      el.addEventListener("change", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
     }
 
     // uppercase automático em campos-chave
@@ -3901,8 +4046,8 @@ document.getElementById("btnCarregarRACode").addEventListener("click", ()=>{
     for(const id of ["rent_tipo_multa","rent_tipo_diftar","rent_tipo_diftax","rent_pago_cia","rent_cobrar_ag"]){
       const el = document.getElementById(id);
       if(!el) continue;
-      el.addEventListener("input", updateAll);
-      el.addEventListener("change", updateAll);
+      el.addEventListener("input", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
+      el.addEventListener("change", ()=>{ invalidateCRR5OnEdit(); updateAll(); });
     }
 
     updateAll();
